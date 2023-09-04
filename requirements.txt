@@ -1,4 +1,4 @@
-geocoder
+flask
 geopy
+ipinfo
 requests
-rich

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AutoARISS</title>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='dist/img/favicon.ico') }}">
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='plugins/fontawesome-free/css/all.min.css') }}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/adminlte.min.css') }}">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" src="{{ url_for('static', filename='dist/img/favicon.png') }}" alt="AutoARISS Logo" height="60" width="60">
+  </div>
+
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a href="" class="brand-link">
+      <img src="{{ url_for('static', filename='dist/img/favicon.png') }}" alt="AutoARISS Logo" class="brand-image img-circle elevation-3">
+      <span class="brand-text font-weight-light">AutoARISS</span>
+    </a>
+
+    <div class="sidebar">
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="{{ url_for('static', filename='dist/img/CallsignLogo.png') }}" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="https://github.com/Un1xG0d" class="d-block">Alan Raff (KC1THB)</a>
+        </div>
+      </div>
+
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item">
+            <a href="/" class="nav-link">
+              <i class="nav-icon fas fa-satellite"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/recordings" class="nav-link">
+              <i class="nav-icon fas fa-microphone"></i>
+              <p>Recordings</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/logs" class="nav-link">
+              <i class="nav-icon fas fa-align-left"></i>
+              <p>Logs</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </aside>
+
+  <div class="content-wrapper">
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Dashboard</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>{{ recordings|length }}</h3>
+
+                <p>Total Recordings</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-mic-a"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>17</h3>
+
+                <p>Locations Discovered</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-map"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>{{ distance }} miles</h3>
+
+                <p>Current Distance from ISS</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-location"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-secondary">
+              <div class="inner">
+                <h3>{{ iss_location }}</h3>
+
+                <p>Current Location of ISS</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-earth"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <section class="col-lg-6">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Recordings</h3>
+              </div>
+              <div class="card-body p-0">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Timestamp</th>
+                      <th>Distance</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for recording in recordings %}
+                      <tr>
+                        <td>{{ recording["timestamp"] }}</td>
+                        <td>{{ recording["distance"] }}</td>
+                        <td>
+                          {% if recording["audio_file"] != "" %}
+                            <span class="badge bg-success">complete</span>
+                          {% else %}
+                            <span class="badge bg-warning">processing</span>
+                          {% endif %}
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+          <section class="col-lg-6">
+            <div class="card">
+              <div class="card-header border-0">
+                <h3 class="card-title">
+                  Realtime Position
+                </h3>
+              </div>
+              <div class="card-body">
+                <iframe sandbox="allow-same-origin allow-scripts" src="https://isstracker.spaceflight.esa.int/" style="border: 0 none transparent;" id="iss-pos" width="100%" height="350px" frameborder="0" scrolling="no" allowfullscreen title="ISS tracking map"></iframe>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <aside class="control-sidebar control-sidebar-dark">
+  </aside>
+</div>
+
+<!-- jQuery -->
+<script src="{{ url_for('static', filename='plugins/jquery/jquery.min.js') }}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="{{ url_for('static', filename='plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="{{ url_for('static', filename='plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- ChartJS -->
+<script src="{{ url_for('static', filename='plugins/chart.js/Chart.min.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ url_for('static', filename='dist/js/adminlte.js') }}"></script>
+</body>
+</html>
