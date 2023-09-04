@@ -9,6 +9,14 @@ Install all required modules with the command:
 pip3 install -r requirements.txt
 ```
 
+### Set up IPInfo access
+In order to prevent rate limiting, you will need to create a free account for the [IP Geolocation API](https://ipinfo.io/products/ip-geolocation-api).
+
+Once you have your access token, create a `.env` file in the root directory and populate it with your personal token:
+```
+IPINFO_TOKEN=xxxxxxxxxxxxxx
+``` 
+
 ### Start the tracking script
 Start the tracking script as a background process:
 ```
