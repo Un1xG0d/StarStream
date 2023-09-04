@@ -11,7 +11,8 @@ load_dotenv()
 
 config = {
 	"user_location": [0, 0],
-	"minimum_distance": 500
+	"minimum_distance": 500,
+	"interval_seconds": 30
 }
 
 def append_to_log(filename, contents):
@@ -54,6 +55,6 @@ def main():
 			# TODO - convert the raw audio file to a wav
 			# TODO - transcribe the audio file
 
-		time.sleep(30)
+		time.sleep(config["interval_seconds"])
 
 main()
