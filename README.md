@@ -1,6 +1,6 @@
 # AutoARISS
 ## Overview
-The idea behind this project is to automate the receiving and logging of communications from the amateur radio repeater on the International Space Station.
+The idea behind this project is to automate the receiving and logging of communications from the [amateur radio repeater on the International Space Station](https://www.ariss.org/).
 
 ## Installing dependencies
 Install all required modules with the command:
