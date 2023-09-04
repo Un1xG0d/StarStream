@@ -1,0 +1,4 @@
+geocoder
+geopy
+requests
+rich
