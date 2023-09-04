@@ -47,7 +47,11 @@ def index():
 	distance = round(get_distance_between(user_location, iss_location), 1)
 	iss_geocoded_location = get_geocoded_location(iss_location)
 	recordings = load_json("logs/recordings.json")
-	return render_template("index.html", distance=distance, iss_location=iss_geocoded_location, recordings=recordings)
+	unique_dates = []
+	for recording in recordings:
+		if recording["timestamp"].split(" ")[0] not in unique_dates:
+			unique_dates.append(recording["timestamp"].split(" ")[0])
+	return render_template("index.html", distance=distance, iss_location=iss_geocoded_location, recordings=recordings, unique_dates=unique_dates)
 
 @app.route("/logs")
 def logs():
