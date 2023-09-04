@@ -24,7 +24,7 @@ def main():
 	default_overpass_estimate = "09-04-2023 03:25"
 	if overpass_estimate == "":
 		overpass_estimate = default_overpass_estimate
-	check_minutes_before_eta = 5
+	log_minutes_before_after_eta = 5
 	while True:
 		eta_date, eta_time = overpass_estimate.split(" ")
 		eta = datetime(int(eta_date.split("-")[2]), int(eta_date.split("-")[0]), int(eta_date.split("-")[1]), int(eta_time.split(":")[0]), int(eta_time.split(":")[1]), 00)
@@ -32,8 +32,8 @@ def main():
 		difference = eta - current
 		minutes_to_overpass = round(difference.total_seconds() / 60)
 		print("Minutes to overpass: " + str(minutes_to_overpass))
-		while abs(minutes_to_overpass) <= check_minutes_before_eta:
-			print("Less than " + str(check_minutes_before_eta) + " minutes to overpass.\nLogging data!")
+		while abs(minutes_to_overpass) <= log_minutes_before_after_eta:
+			print("Less than " + str(log_minutes_before_after_eta) + " minutes to overpass.\nLogging data!")
 			user_location = get_user_location()
 			iss_location = get_iss_location()
 			distance = round(get_distance_between(user_location, iss_location), 10)
@@ -46,7 +46,7 @@ def main():
 			append_to_log("logs/overpass_" + eta_date + ".json", json.dumps(output) + "\n")
 			time.sleep(5)
 		else:
-			print("No overpass within " + str(check_minutes_before_eta) + " minutes! Sleeping.")
+			print("No overpass within " + str(log_minutes_before_after_eta) + " minutes! Sleeping.")
 			time.sleep(60)
 
 main()
