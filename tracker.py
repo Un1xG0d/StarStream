@@ -31,7 +31,7 @@ def get_distance_between(coords_1, coords_2):
 	return geopy.distance.geodesic(coords_1, coords_2).miles
 
 def main():
-	append_to_log("logs/tracker_output.log", "[LOG] Started tracker at " + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "\n")
+	append_to_log("logs/tracker_output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Started tracker." + "\n")
 	config["user_location"] = get_user_location()
 	while True:
 		iss_location = get_iss_location()
@@ -39,8 +39,8 @@ def main():
 
 		if distance < config["minimum_distance"]:
 			timestamp = datetime.now().strftime("%m-%d-%Y %H:%M:%S")
-			append_to_log("logs/tracker_output.log", "[LOG] ISS became within the minimum distance at " + timestamp + "\n")
-			append_to_log("logs/tracker_output.log", "[LOG] ISS is currently " + str(round(distance, 1)) + " miles away." + "\n")
+			append_to_log("logs/tracker_output.log", "[" + timestamp + "] ISS became within the minimum distance." + "\n")
+			append_to_log("logs/tracker_output.log", "[" + timestamp + "] ISS is currently " + str(round(distance, 1)) + " miles away." + "\n")
 			recording_output = {
 				"timestamp": timestamp,
 				"user_location": str(config["user_location"]),
@@ -53,7 +53,6 @@ def main():
 			# TODO - convert the received signal to an audio file
 			# TODO - convert the raw audio file to a wav
 			# TODO - transcribe the audio file
-			append_to_log("logs/tracker_output.log", "\n")
 
 		time.sleep(30)
 
