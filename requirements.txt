@@ -1,4 +1,5 @@
 flask
 geopy
 ipinfo
+numpy
 requests
