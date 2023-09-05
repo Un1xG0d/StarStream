@@ -27,7 +27,7 @@ def get_user_location():
 	return [float(location[0]), float(location[1])]
 
 def load_json(filename):
-	with open(filename, "r") as file:
+	with open(filename) as file:
 		lines = []
 		for line in file.readlines():
 			lines.append(json.loads(line))
