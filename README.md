@@ -13,7 +13,7 @@ It uses the real-time location of the ISS to determine distance from the user an
 Install all required modules with the command:
 ```
 pip3 install -r requirements.txt
-sudo port install ffmpeg rtl-sdr sox
+sudo port install ffmpeg rtl-sdr
 ```
 
 > NOTE: You will need to install [MacPorts](https://www.macports.org/install.php) first, if you don’t already have it.
