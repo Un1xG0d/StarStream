@@ -11,7 +11,7 @@ load_dotenv()
 
 config = {
 	"user_location": [0, 0],
-	"minimum_distance": 500,
+	"minimum_distance": 250,
 	"interval_seconds": 30
 }
 
