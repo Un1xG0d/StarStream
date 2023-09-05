@@ -2,6 +2,10 @@
 ## Overview
 The idea behind this project is to automate the receiving and logging of communications from the [amateur radio repeater on the International Space Station](https://www.ariss.org/).
 
+<h1 align="center">
+  <img src="https://github.com/Un1xG0d/AutoARISS/blob/8186b951fbf49e990289e6ecb7367a0dc227663e/images/screenshot_dashboard_1.png">
+</h1>
+
 ## Getting Started
 ### Install dependencies
 Install all required modules with the command:
