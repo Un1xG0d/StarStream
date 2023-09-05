@@ -12,9 +12,9 @@ def get_distance_between(coords_1, coords_2):
 
 def get_geocoded_location(coords):
 	geolocator = Nominatim(user_agent="GetLoc")
-	if geolocator.reverse(coords) != None:
+	try:
 		return geolocator.reverse(coords).raw["address"]["state"]
-	else:
+	except:
 		return "None"
 
 def get_iss_location():
