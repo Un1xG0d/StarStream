@@ -78,8 +78,6 @@ def main():
 		distance, elevation_angle = elevations.get_distance_and_elevation_angle(config["user_location"], iss_location)
 		distance = distance * 0.621371
 
-		print("Distance: " + str(distance) + " Elevation: " + str(elevation_angle))
-
 		if distance < config["minimum_distance"] and elevation_angle > config["minimum_elevation_angle"]:
 			timestamp = datetime.now()
 			timestamp_readable = timestamp.strftime("%m-%d-%Y %H:%M:%S")
