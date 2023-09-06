@@ -64,7 +64,6 @@ def distance(ap, bp):
 	dx = ap["x"] - bp["x"]
 	dy = ap["y"] - bp["y"]
 	dz = ap["z"] - bp["z"]
-
 	return math.sqrt (dx*dx + dy*dy + dz*dz)
 
 def rotate_globe (b, a, bradius, aradius):
@@ -137,7 +136,6 @@ def calculate(a, b):
 	# So altitude = 90 - acos(dotprod).
 	altitude = 90.0 - (180.0 / math.pi)*math.acos(bma["x"]*ap["nx"] + bma["y"]*ap["ny"] + bma["z"]*ap["nz"])
 	d["altitude"] = altitude
-
 	return d
 
 def get_home_location(coords):
