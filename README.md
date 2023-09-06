@@ -27,7 +27,7 @@ IPINFO_TOKEN=xxxxxxxxxxxxxx
 ```
 
 ### Connect your SDR
-Before starting the tracker, make sure your SDR is connected via USB. I am using the RTL-SDR V3 kit from [this link](https://a.co/d/3p9rCar).
+Before starting the tracker, make sure your SDR is connected via USB. I am using the RTL-SDR kit from [this link](https://a.co/d/3p9rCar).
 
 ### Start the tracking script
 Start the tracking script as a background process:
