@@ -77,7 +77,7 @@ def main():
 			append_to_log("logs/recordings.json", json.dumps(recording_output) + "\n")
 			execute_command("rtl_sdr -f " + str(config["frequency"]) + "M -s " + str(config["sample_rate"]) + "k -n " + str(config["sample_rate"] * config["seconds_to_record"] * 1000) + " recordings/" + timestamp_epoch + ".iq")
 			append_to_log("logs/tracker_output.log", "[" + timestamp_readable + "] Started recording on " + str(config["frequency"]) + " MHz." + "\n")
-			execute_command("cat recordings/" + timestamp_epoch + ".iq | ./fm1.py > recordings/" + timestamp_epoch + ".raw")
+			execute_command("cat recordings/" + timestamp_epoch + ".iq | ./demodulator.py > recordings/" + timestamp_epoch + ".raw")
 			execute_command("ffmpeg -f s16le -ac 1 -ar " + str(config["sample_rate"]) + "000 -acodec pcm_s16le -i recordings/" + timestamp_epoch + ".raw recordings/" + timestamp_epoch + ".mp3")
 			execute_command("rm -rf recordings/" + timestamp_epoch + ".iq recordings/" + timestamp_epoch + ".raw")
 			update_audio_file(timestamp_readable, timestamp_epoch)
