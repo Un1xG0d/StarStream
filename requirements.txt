@@ -2,4 +2,5 @@ flask
 geopy
 ipinfo
 numpy
+pyproj
 requests
