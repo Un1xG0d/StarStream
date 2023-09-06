@@ -32,7 +32,7 @@ Start the tracking script as a background process:
 python3 tracker.py &
 ```
 
-This script will constantly query the location of the ISS and will start recording when the distance is less than 250 miles away from your current location. You can adjust the distance in the `minimum_distance` variable of the `config` object.
+This script will constantly query the location of the ISS and will start recording when the distance is less than 200 miles away from your current location. You can adjust the distance in the `minimum_distance` variable of the `config` object.
 
 ### Launch the web dashboard
 ```
