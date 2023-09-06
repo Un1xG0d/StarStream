@@ -18,12 +18,15 @@ sudo port install ffmpeg rtl-sdr
 
 > NOTE: You will need to install [MacPorts](https://www.macports.org/install.php) first, if you don’t already have it.
 
-### Set up IPInfo access
-In order to prevent rate limiting, you will need to create a free account for the [IP Geolocation API](https://ipinfo.io/products/ip-geolocation-api).
+### Set up API accounts
+In order to prevent rate limiting when getting the user location, you will need to create a free account for the [IP Geolocation API](https://ipinfo.io/products/ip-geolocation-api).
 
-Once you have your access token, create a `.env` file in the root directory and populate it with your personal token:
+You will also need an [OpenAI API key](https://openai.com/blog/openai-api) to handle the audio-to-text transcriptions.
+
+Once you have these, create a `.env` file in the root project directory and populate it with your personal tokens:
 ```
 IPINFO_TOKEN=xxxxxxxxxxxxxx
+OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
 ### Connect your SDR

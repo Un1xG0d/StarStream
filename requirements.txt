@@ -2,5 +2,6 @@ flask
 geopy
 ipinfo
 numpy
+openai
 pyproj
 requests
