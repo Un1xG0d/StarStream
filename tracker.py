@@ -15,8 +15,8 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 
 config = {
 	"user_location": [0, 0],
-	"minimum_distance": 200,
-	"minimum_elevation_angle": 30,
+	"minimum_distance": 500,
+	"minimum_elevation_angle": 25,
 	"interval_seconds": 30,
 	"frequency": 437.8,
 	"seconds_to_record": 60,
@@ -77,6 +77,8 @@ def main():
 		iss_location = get_iss_location()
 		distance, elevation_angle = elevations.get_distance_and_elevation_angle(config["user_location"], iss_location)
 		distance = distance * 0.621371
+
+		print("Distance: " + str(distance) + " Elevation: " + str(elevation_angle))
 
 		if distance < config["minimum_distance"] and elevation_angle > config["minimum_elevation_angle"]:
 			timestamp = datetime.now()
