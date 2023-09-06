@@ -109,9 +109,10 @@ def main():
 			execute_command("ffmpeg -f s16le -ac 1 -ar " + str(config["sample_rate"]) + "000 -acodec pcm_s16le -i recordings/" + timestamp_epoch + ".raw -af 'highpass=f=200, lowpass=f=3000, volume=4' recordings/" + timestamp_epoch + ".mp3")
 			execute_command("rm -rf recordings/" + timestamp_epoch + ".iq recordings/" + timestamp_epoch + ".raw")
 			update_audio_file(timestamp_readable, timestamp_epoch)
+			append_to_log("logs/tracker_output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Saved recording to: recordings/" + timestamp_epoch + ".mp3" + "\n")
 			transcript = transcribe_audio(timestamp_epoch)
 			update_transcript(timestamp_readable, transcript)
-			append_to_log("logs/tracker_output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Saved recording to: recordings/" + timestamp_epoch + ".mp3" + "\n")
+			append_to_log("logs/tracker_output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Finished transcribing audio." + "\n")
 
 		print("Sleeping for " + str(config["interval_seconds"]) + " seconds.")
 		time.sleep(config["interval_seconds"])
