@@ -1,4 +1,4 @@
-import geopy.distance
+import elevations
 import ipinfo
 import json
 import openai
@@ -39,17 +39,9 @@ def get_user_location():
 	location = handler.getDetails().loc.split(",")
 	return [float(location[0]), float(location[1])]
 
-def get_elevation_angle(coords_1, coords_2):
-	geodesic = pyproj.Geod(ellps="WGS84")
-	forward_azimuth, back_azimuth, distance = geodesic.inv(coords_1[1], coords_1[0], coords_2[1], coords_2[0])
-	return forward_azimuth
-
 def get_iss_location():
 	r = requests.get("http://api.open-notify.org/iss-now.json")
 	return [float(r.json()["iss_position"]["latitude"]), float(r.json()["iss_position"]["longitude"])]
-
-def get_distance_between(coords_1, coords_2):
-	return geopy.distance.geodesic(coords_1, coords_2).miles
 
 def transcribe_audio(timestamp_epoch):
 	return openai.Audio.transcribe("whisper-1", open("static/recordings/" + timestamp_epoch + ".mp3", "rb"))["text"]
@@ -83,8 +75,8 @@ def main():
 	config["user_location"] = get_user_location()
 	while True:
 		iss_location = get_iss_location()
-		distance = get_distance_between(config["user_location"], iss_location)
-		elevation_angle = get_elevation_angle(config["user_location"], iss_location)
+		distance, elevation_angle = elevations.get_distance_and_elevation_angle(config["user_location"], iss_location)
+		distance = distance * 0.621371
 
 		if distance < config["minimum_distance"] and elevation_angle > config["minimum_elevation_angle"]:
 			timestamp = datetime.now()

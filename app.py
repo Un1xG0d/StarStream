@@ -1,4 +1,4 @@
-import geopy.distance
+import elevations
 import ipinfo
 import json
 import os
@@ -8,7 +8,9 @@ from flask import Flask, render_template
 from geopy.geocoders import Nominatim
 
 def get_distance_between(coords_1, coords_2):
-	return geopy.distance.geodesic(coords_1, coords_2).miles
+	distance, elevation_angle = elevations.get_distance_and_elevation_angle(coords_1, coords_2)
+	distance_miles = distance * 0.621371
+	return distance_miles
 
 def get_geocoded_location(coords):
 	geolocator = Nominatim(user_agent="GetLoc")
