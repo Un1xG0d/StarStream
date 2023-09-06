@@ -24,7 +24,10 @@ In order to prevent rate limiting, you will need to create a free account for th
 Once you have your access token, create a `.env` file in the root directory and populate it with your personal token:
 ```
 IPINFO_TOKEN=xxxxxxxxxxxxxx
-``` 
+```
+
+### Connect your SDR
+Before starting the tracker, make sure your SDR is connected via USB. I am using the RTL-SDR V3 kit from [this link](https://a.co/d/3p9rCar).
 
 ### Start the tracking script
 Start the tracking script as a background process:
