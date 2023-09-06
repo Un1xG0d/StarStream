@@ -2,6 +2,7 @@ import geopy.distance
 import ipinfo
 import json
 import os
+import pyproj
 import requests
 import time
 from datetime import datetime
@@ -13,6 +14,7 @@ load_dotenv()
 config = {
 	"user_location": [0, 0],
 	"minimum_distance": 200,
+	"minimum_elevation_angle": 20,
 	"interval_seconds": 30,
 	"frequency": 437.8,
 	"seconds_to_record": 60,
@@ -47,6 +49,11 @@ def get_user_location():
 	location = handler.getDetails().loc.split(",")
 	return [float(location[0]), float(location[1])]
 
+def get_elevation_angle(coords_1, coords_2):
+	geodesic = pyproj.Geod(ellps="WGS84")
+	forward_azimuth, back_azimuth, distance = geodesic.inv(coords_1[1], coords_1[0], coords_2[1], coords_2[0])
+	return forward_azimuth
+
 def get_iss_location():
 	r = requests.get("http://api.open-notify.org/iss-now.json")
 	return [float(r.json()["iss_position"]["latitude"]), float(r.json()["iss_position"]["longitude"])]
@@ -60,18 +67,21 @@ def main():
 	while True:
 		iss_location = get_iss_location()
 		distance = get_distance_between(config["user_location"], iss_location)
+		elevation_angle = get_elevation_angle(config["user_location"], iss_location)
 
-		if distance < config["minimum_distance"]:
+		if distance < config["minimum_distance"] and elevation_angle > config["minimum_elevation_angle"]:
 			timestamp = datetime.now()
 			timestamp_readable = timestamp.strftime("%m-%d-%Y %H:%M:%S")
 			timestamp_epoch = timestamp.strftime("%s")
-			append_to_log("logs/tracker_output.log", "[" + timestamp_readable + "] ISS became within the minimum distance." + "\n")
-			append_to_log("logs/tracker_output.log", "[" + timestamp_readable + "] ISS is currently " + str(round(distance, 1)) + " miles away." + "\n")
+			append_to_log("logs/tracker_output.log", "[" + timestamp_readable + "] The ISS became within the minimum distance." + "\n")
+			append_to_log("logs/tracker_output.log", "[" + timestamp_readable + "] The ISS is currently " + str(round(distance, 1)) + " miles away." + "\n")
+			append_to_log("logs/tracker_output.log", "[" + timestamp_readable + "] The elevation angle is " + str(round(elevation_angle, 1)) + " degrees." + "\n")
 			recording_output = {
 				"timestamp": timestamp_readable,
 				"user_location": str(config["user_location"]),
 				"iss_location": str(iss_location),
 				"distance": str(round(distance, 1)),
+				"elevation_angle": str(round(elevation_angle, 1)),
 				"audio_file": ""
 			}
 			append_to_log("logs/recordings.json", json.dumps(recording_output) + "\n")
