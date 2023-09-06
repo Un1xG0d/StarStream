@@ -14,7 +14,7 @@ load_dotenv()
 config = {
 	"user_location": [0, 0],
 	"minimum_distance": 200,
-	"minimum_elevation_angle": 20,
+	"minimum_elevation_angle": 30,
 	"interval_seconds": 30,
 	"frequency": 437.8,
 	"seconds_to_record": 60,
