@@ -57,3 +57,8 @@ def index():
 def logs():
 	tracker_output = read_file("logs/tracker_output.log").split("\n")
 	return render_template("logs.html", logs=tracker_output)
+
+@app.route("/recordings")
+def recordings():
+	recordings = load_json("logs/recordings.json")
+	return render_template("recordings.html", recordings=recordings)
