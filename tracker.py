@@ -17,7 +17,7 @@ config = {
 	"minimum_distance": 500,
 	"minimum_elevation_angle": 25,
 	"interval_seconds": 30,
-	"frequency": 437.8,
+	"frequency": 145.825,
 	"seconds_to_record": 60,
 	"sample_rate": 256
 }
