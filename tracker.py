@@ -1,4 +1,4 @@
-import elevations
+import calculations
 import ipinfo
 import json
 import openai
@@ -74,7 +74,7 @@ def main():
 	config["user_location"] = get_user_location()
 	while True:
 		iss_location = get_iss_location()
-		distance, elevation_angle = elevations.get_distance_and_elevation_angle(config["user_location"], iss_location)
+		distance, elevation_angle = calculations.get_distance_and_elevation_angle(config["user_location"], iss_location)
 		distance = distance * 0.621371
 
 		print("Distance: " + str(round(distance, 1)) + " Elevation: " + str(round(elevation_angle, 1)))
