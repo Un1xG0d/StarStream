@@ -158,5 +158,5 @@ def get_elevation_of_location(coords):
 def get_distance_and_elevation_angle(coords_1, coords_2):
 	a = get_home_location(coords_1)
 	b = get_iss_location(coords_2)
-	alt_az = calculate(a, b)
-	return alt_az["distkm"], alt_az["altitude"]
+	data = calculate(a, b)
+	return data["distkm"], data["altitude"]
