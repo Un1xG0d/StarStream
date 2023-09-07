@@ -5,7 +5,15 @@ The idea behind this project is to automate the receiving and logging of communi
 It uses the real-time location of the ISS to determine distance from the user and automatically starts receiving through an attached SDR when the conditions are deemed acceptable.
 
 <h1 align="center">
-  <img src="https://github.com/Un1xG0d/AutoARISS/blob/master/images/screenshot_dashboard_1.png">
+  <img src="https://github.com/Un1xG0d/AutoARISS/blob/master/images/screenshot_dashboard.png">
+</h1>
+<br>
+<h1 align="center">
+  <img src="https://github.com/Un1xG0d/AutoARISS/blob/master/images/screenshot_recordings.png">
+</h1>
+<br>
+<h1 align="center">
+  <img src="https://github.com/Un1xG0d/AutoARISS/blob/master/images/screenshot_logs.png">
 </h1>
 
 ## Getting Started
