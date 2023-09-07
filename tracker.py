@@ -3,7 +3,6 @@ import ipinfo
 import json
 import openai
 import os
-import pyproj
 import requests
 import time
 from datetime import datetime
