@@ -26,7 +26,7 @@ You will also need an [OpenAI API key](https://openai.com/blog/openai-api) to ha
 Once you have these, create a `.env` file in the root project directory and populate it with your personal tokens:
 ```
 IPINFO_TOKEN=xxxxxxxxxxxxxx
-OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+OPENAI_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
 ### Connect your SDR
