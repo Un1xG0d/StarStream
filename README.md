@@ -6,13 +6,9 @@ It uses the real-time location of the ISS to determine distance from the user an
 
 <h1 align="center">
   <img src="https://github.com/Un1xG0d/AutoARISS/blob/master/images/screenshot_dashboard.png">
-</h1>
-
-<h1 align="center">
+  <br>
   <img src="https://github.com/Un1xG0d/AutoARISS/blob/master/images/screenshot_recordings.png">
-</h1>
-
-<h1 align="center">
+  <br>
   <img src="https://github.com/Un1xG0d/AutoARISS/blob/master/images/screenshot_logs.png">
 </h1>
 
