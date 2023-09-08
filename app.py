@@ -1,6 +1,7 @@
 import calculations
 import ipinfo
 import json
+import ngrok
 import os
 import requests
 from dotenv import load_dotenv
@@ -64,3 +65,9 @@ def recordings():
 def logs():
 	tracker_output = read_file("logs/tracker_output.log").split("\n")
 	return render_template("logs.html", logs=tracker_output)
+
+if __name__ == "__main__":
+	port = 8000
+	tunnel = ngrok.connect(port, authtoken_from_env=True)
+	print("AutoARISS started on " + tunnel.url() + "\n")
+	app.run(host="0.0.0.0", port=port)

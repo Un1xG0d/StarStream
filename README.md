@@ -27,9 +27,12 @@ In order to prevent rate limiting, you will need to create a free account for th
 
 You will also need an [OpenAI API key](https://openai.com/blog/openai-api) to handle the audio-to-text transcriptions.
 
+You will have to set up an [ngrok token](https://ngrok.com/) as well to expose the Flask app to the internet without any additional setup like port forwarding.
+
 Once you have these, create a `.env` file in the root project directory and populate it with your personal tokens:
 ```
 IPINFO_TOKEN=xxxxxxxxxxxxxx
+NGROK_AUTHTOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 OPENAI_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
@@ -46,8 +49,7 @@ This script will constantly query the location of the ISS and will start recordi
 
 ### Launch the web dashboard
 ```
-export FLASK_APP=app
-flask run
+python3 app.py
 ```
 
 The Dashboard page has general information on the status of the ISS, your recordings, and a map of the real-time position of the ISS.
