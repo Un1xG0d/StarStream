@@ -49,7 +49,7 @@ This script will constantly query the location of the ISS and will start recordi
 
 ### Launch the web dashboard
 ```
-python3 app.py
+python3 web.py
 ```
 
 The Dashboard page has general information on the status of the ISS, your recordings, and a map of the real-time position of the ISS.
