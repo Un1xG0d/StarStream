@@ -14,7 +14,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 
 config = {
 	"user_location": [0, 0],
-	"minimum_distance": 500,
+	"minimum_distance": 400,
 	"minimum_elevation_angle": 25,
 	"interval_seconds": 30,
 	"frequency": 437.8,
