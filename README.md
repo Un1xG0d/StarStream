@@ -12,12 +12,22 @@ It uses the real-time location of the ISS to determine distance from the user an
   <img src="https://github.com/Un1xG0d/AutoARISS/blob/master/images/screenshot_logs.png">
 </h1>
 
-## Raspberry Pi Instructions
+## Getting Started
+### Configure Raspberry Pi
+Install [Raspbian](https://www.raspberrypi.com/software/) onto your Raspberry Pi.
+
+After setup is complete, make sure to enable SSH with the `raspi-config` command.
+
 ### Install dependencies
 Install all required software with the commands:
 ```
 pip3 install -r requirements.txt
 sudo apt install -y ffmpeg gpsd gpsd-clients rtl-sdr
+```
+
+You may need to configure GPSD to use your USB GPS receiver:
+```
+sudo sed -i 's/GPSD_OPTIONS=""/GPSD_OPTIONS="\/dev\/ttyUSB0"/' /etc/default/gpsd
 ```
 
 ### Set up API accounts
