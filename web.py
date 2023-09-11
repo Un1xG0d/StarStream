@@ -28,7 +28,7 @@ def get_iss_location():
 def get_user_location():
 	print("Attempting to get current location...")
 	time.sleep(10)
-	if agps_thread.data_stream.lat != "n/a":
+	if type(agps_thread.data_stream.lat) is float:
 		return [agps_thread.data_stream.lat, agps_thread.data_stream.lon, agps_thread.data_stream.alt]
 	else:
 		get_user_location()
