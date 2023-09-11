@@ -12,26 +12,19 @@ It uses the real-time location of the ISS to determine distance from the user an
   <img src="https://github.com/Un1xG0d/AutoARISS/blob/master/images/screenshot_logs.png">
 </h1>
 
-## Getting Started
+## Raspberry Pi Instructions
 ### Install dependencies
-Install all required modules with the command:
+Install all required software with the commands:
 ```
 pip3 install -r requirements.txt
-sudo port install ffmpeg rtl-sdr
+sudo apt install -y ffmpeg gpsd gpsd-clients rtl-sdr
 ```
 
-> NOTE: You will need to install [MacPorts](https://www.macports.org/install.php) first, if you don’t already have it.
-
 ### Set up API accounts
-In order to prevent rate limiting, you will need to create a free account for the [IP Geolocation API](https://ipinfo.io/products/ip-geolocation-api).
-
-You will also need an [OpenAI API key](https://openai.com/blog/openai-api) to handle the audio-to-text transcriptions.
-
-You will have to set up an [ngrok token](https://ngrok.com/) as well to expose the Flask app to the internet without any additional setup like port forwarding.
+You will need to create an [OpenAI API key](https://openai.com/blog/openai-api) to handle the audio-to-text transcriptions, and an [ngrok token](https://ngrok.com/) to expose the Flask app to the internet without any additional setup like port forwarding.
 
 Once you have these, create a `.env` file in the root project directory and populate it with your personal tokens:
 ```
-IPINFO_TOKEN=xxxxxxxxxxxxxx
 NGROK_AUTHTOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 OPENAI_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```

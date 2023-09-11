@@ -1,5 +1,4 @@
 import calculations
-import ipinfo
 import json
 import ngrok
 import os
@@ -7,6 +6,7 @@ import requests
 from dotenv import load_dotenv
 from flask import Flask, render_template
 from geopy.geocoders import Nominatim
+from gps3.agps3threaded import AGPS3mechanism
 
 def get_distance_between(coords_1, coords_2):
 	distance, elevation_angle = calculations.get_distance_and_elevation_angle(coords_1, coords_2)
@@ -25,9 +25,11 @@ def get_iss_location():
 	return [float(r.json()["iss_position"]["latitude"]), float(r.json()["iss_position"]["longitude"])]
 
 def get_user_location():
-	handler = ipinfo.getHandler(os.getenv("IPINFO_TOKEN"))
-	location = handler.getDetails().loc.split(",")
-	return [float(location[0]), float(location[1])]
+	time.sleep(5)
+	if agps_thread.data_stream.lat != "n/a":
+		return [agps_thread.data_stream.lat, agps_thread.data_stream.lon, agps_thread.data_stream.alt]
+	else:
+		get_location()
 
 def load_json(filename):
 	with open(filename) as file:
@@ -42,6 +44,9 @@ def read_file(filename):
 
 load_dotenv()
 app = Flask(__name__)
+agps_thread = AGPS3mechanism()
+agps_thread.stream_data()
+agps_thread.run_thread()
 user_location = get_user_location()
 
 @app.route("/")

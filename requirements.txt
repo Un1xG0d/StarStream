@@ -1,6 +1,6 @@
 flask
 geopy
-ipinfo
+gps3
 ngrok
 numpy
 openai

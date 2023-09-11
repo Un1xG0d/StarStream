@@ -1,5 +1,4 @@
 import calculations
-import ipinfo
 import json
 import openai
 import os
@@ -13,7 +12,7 @@ load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 config = {
-	"user_location": [0, 0],
+	"user_location": [0, 0, 0],
 	"minimum_distance": 400,
 	"minimum_elevation_angle": 25,
 	"interval_seconds": 30,
@@ -34,9 +33,11 @@ def execute_command(command):
 		print(stderr.decode("utf-8"))
 
 def get_user_location():
-	handler = ipinfo.getHandler(os.getenv("IPINFO_TOKEN"))
-	location = handler.getDetails().loc.split(",")
-	return [float(location[0]), float(location[1])]
+	time.sleep(5)
+	if agps_thread.data_stream.lat != "n/a":
+		return [agps_thread.data_stream.lat, agps_thread.data_stream.lon, agps_thread.data_stream.alt]
+	else:
+		get_location()
 
 def get_iss_location():
 	r = requests.get("http://api.open-notify.org/iss-now.json")

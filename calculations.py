@@ -142,7 +142,7 @@ def get_home_location(coords):
 	d = {}
 	d["lat"] = coords[0]
 	d["lon"] = coords[1]
-	d["elv"] = get_elevation_of_location(coords)
+	d["elv"] = coords[2]
 	return d
 
 def get_iss_location(coords):
@@ -151,9 +151,6 @@ def get_iss_location(coords):
 	d["lon"] = coords[1]
 	d["elv"] = 420000
 	return d
-
-def get_elevation_of_location(coords):
-	return float(requests.get("https://epqs.nationalmap.gov/v1/json?x=" + str(coords[1]) + "&y=" + str(coords[0]) + "&wkid=4326&units=Meters&includeDate=false").json()["value"])
 
 def get_distance_and_elevation_angle(coords_1, coords_2):
 	a = get_home_location(coords_1)
