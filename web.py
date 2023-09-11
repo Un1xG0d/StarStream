@@ -52,7 +52,6 @@ agps_thread.run_thread()
 
 @app.route("/")
 def dashboard():
-	user_location = get_user_location()
 	iss_location = get_iss_location()
 	distance = round(get_distance_between(user_location, iss_location), 1)
 	iss_geocoded_location = get_geocoded_location(iss_location)
@@ -74,6 +73,7 @@ def logs():
 	return render_template("logs.html", logs=tracker_output)
 
 if __name__ == "__main__":
+	user_location = get_user_location()
 	port = 8000
 	tunnel = ngrok.connect(port, authtoken_from_env=True)
 	print("AutoARISS started on " + tunnel.url() + "\n")
