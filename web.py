@@ -26,6 +26,7 @@ def get_iss_location():
 	return [float(r.json()["iss_position"]["latitude"]), float(r.json()["iss_position"]["longitude"])]
 
 def get_user_location():
+	print("Getting current location...")
 	time.sleep(5)
 	if agps_thread.data_stream.lat != "n/a":
 		return [agps_thread.data_stream.lat, agps_thread.data_stream.lon, agps_thread.data_stream.alt]
