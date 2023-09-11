@@ -54,7 +54,6 @@ user_location = get_user_location()
 @app.route("/")
 def dashboard():
 	iss_location = get_iss_location()
-	print(user_location)
 	distance = round(get_distance_between(user_location, iss_location), 1)
 	iss_geocoded_location = get_geocoded_location(iss_location)
 	recordings = load_json("logs/recordings.json")

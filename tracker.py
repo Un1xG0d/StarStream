@@ -6,10 +6,14 @@ import requests
 import time
 from datetime import datetime
 from dotenv import load_dotenv
+from gps3.agps3threaded import AGPS3mechanism
 from subprocess import Popen, PIPE
 
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
+agps_thread = AGPS3mechanism()
+agps_thread.stream_data()
+agps_thread.run_thread()
 
 config = {
 	"user_location": [0, 0, 0],
