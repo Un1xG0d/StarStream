@@ -37,7 +37,7 @@ def get_user_location():
 	if agps_thread.data_stream.lat != "n/a":
 		return [agps_thread.data_stream.lat, agps_thread.data_stream.lon, agps_thread.data_stream.alt]
 	else:
-		get_location()
+		get_user_location()
 
 def get_iss_location():
 	r = requests.get("http://api.open-notify.org/iss-now.json")
