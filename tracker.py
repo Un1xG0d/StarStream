@@ -33,7 +33,8 @@ def execute_command(command):
 		print(stderr.decode("utf-8"))
 
 def get_user_location():
-	time.sleep(5)
+	print("Attempting to get current location...")
+	time.sleep(10)
 	if agps_thread.data_stream.lat != "n/a":
 		return [agps_thread.data_stream.lat, agps_thread.data_stream.lon, agps_thread.data_stream.alt]
 	else:
