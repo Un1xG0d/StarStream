@@ -29,7 +29,7 @@ def get_user_location():
 	print("Attempting to get current location...")
 	time.sleep(45)
 	if type(agps_thread.data_stream.lat) is float:
-		return [agps_thread.data_stream.lat, agps_thread.data_stream.lon, agps_thread.data_stream.alt]
+		return [agps_thread.data_stream.lat, agps_thread.data_stream.lon]
 	else:
 		get_user_location()
 

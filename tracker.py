@@ -16,7 +16,7 @@ agps_thread.stream_data()
 agps_thread.run_thread()
 
 config = {
-	"user_location": [0, 0, 0],
+	"user_location": [0, 0],
 	"minimum_distance": 400,
 	"minimum_elevation_angle": 25,
 	"interval_seconds": 30,
@@ -40,7 +40,7 @@ def get_user_location():
 	print("Attempting to get current location...")
 	time.sleep(45)
 	if type(agps_thread.data_stream.lat) is float:
-		return [agps_thread.data_stream.lat, agps_thread.data_stream.lon, agps_thread.data_stream.alt]
+		return [agps_thread.data_stream.lat, agps_thread.data_stream.lon]
 	else:
 		get_user_location()
 
