@@ -77,5 +77,5 @@ if __name__ == "__main__":
 	port = 8000
 	ngrok.set_auth_token(os.getenv("NGROK_AUTHTOKEN"))
 	tunnel = ngrok.connect(port)
-	print("AutoARISS started on " + tunnel.url() + "\n")
+	print("AutoARISS started on " + tunnel.public_url() + "\n")
 	app.run(host="0.0.0.0", port=port)
