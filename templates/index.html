@@ -147,7 +147,7 @@
                         <td>{{ recording["timestamp"] }}</td>
                         <td>{{ recording["distance"] }}</td>
                         <td>
-                          {% if recording["transcript"] != "" %}
+                          {% if recording["audio_file"] != "" %}
                             <span class="badge bg-success">complete</span>
                           {% else %}
                             <span class="badge bg-warning">processing</span>
