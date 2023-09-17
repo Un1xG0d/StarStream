@@ -14,9 +14,9 @@ It uses the real-time location of the ISS to determine distance from the user an
 
 ## Getting Started
 ### Configure Raspberry Pi
-Install [Raspbian](https://www.raspberrypi.com/software/) onto your Raspberry Pi.
+Install [Raspberry Pi OS Lite (64 bit)](https://www.raspberrypi.com/software/) onto your Raspberry Pi and configure the WiFi & SSH settings.
 
-After setup is complete, make sure to enable SSH with the `raspi-config` command.
+This is the headless mode without a GUI, which will make the system last longer on battery power.
 
 ### Install dependencies
 Install all required software with the commands:
@@ -25,7 +25,7 @@ pip3 install -r requirements.txt
 sudo apt install -y ffmpeg gpsd gpsd-clients rtl-sdr
 ```
 
-You may need to configure GPSD to use your USB GPS receiver:
+You may need to configure GPSD to use your [USB GPS receiver](https://www.amazon.com/GlobalSat-BU-353-S4-Receiver-Black-Improved-New/dp/B098L799NH):
 ```
 sudo sed -i 's/GPSD_OPTIONS=""/GPSD_OPTIONS="\/dev\/ttyUSB0"/' /etc/default/gpsd
 ```
