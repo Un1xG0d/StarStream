@@ -98,6 +98,7 @@ def main():
 				"iss_location": str(iss_location),
 				"distance": str(round(distance, 1)),
 				"elevation_angle": str(round(elevation_angle, 1)),
+				"frequency": config["frequency"],
 				"audio_file": "",
 				"transcript": ""
 			}
