@@ -9,6 +9,12 @@ from geopy.geocoders import Nominatim
 from gps3.agps3threaded import AGPS3mechanism
 from pyngrok import ngrok
 
+def check_logs_exist():
+	if not os.path.isfile("logs/recordings.json"):
+		open("logs/recordings.json", "a").close()
+	if not os.path.isfile("logs/tracker_output.log"):
+		open("logs/tracker_output.log", "a").close()
+
 def get_distance_between(coords_1, coords_2):
 	distance, elevation_angle = calculations.get_distance_and_elevation_angle(coords_1, coords_2)
 	distance_miles = distance * 0.621371
@@ -73,6 +79,7 @@ def logs():
 	return render_template("logs.html", logs=tracker_output)
 
 if __name__ == "__main__":
+	check_logs_exist()
 	user_location = get_user_location()
 	port = 8000
 	ngrok.set_auth_token(os.getenv("NGROK_AUTHTOKEN"))
