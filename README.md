@@ -22,7 +22,7 @@ This is the headless mode without a GUI, which will make the system last longer 
 Install all required software with the commands:
 ```
 pip3 install -r requirements.txt
-sudo apt install -y ffmpeg gpsd gpsd-clients rtl-sdr
+sudo apt install -y ffmpeg gpsd gpsd-clients python3-pip rtl-sdr
 ```
 
 You may need to configure GPSD to use your [USB GPS receiver](https://www.amazon.com/GlobalSat-BU-353-S4-Receiver-Black-Improved-New/dp/B098L799NH):
