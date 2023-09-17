@@ -1,6 +1,5 @@
 import calculations
 import json
-import ngrok
 import os
 import requests
 import time
@@ -8,6 +7,7 @@ from dotenv import load_dotenv
 from flask import Flask, render_template
 from geopy.geocoders import Nominatim
 from gps3.agps3threaded import AGPS3mechanism
+from pyngrok import ngrok
 
 def get_distance_between(coords_1, coords_2):
 	distance, elevation_angle = calculations.get_distance_and_elevation_angle(coords_1, coords_2)
@@ -75,6 +75,7 @@ def logs():
 if __name__ == "__main__":
 	user_location = get_user_location()
 	port = 8000
-	tunnel = ngrok.connect(port, authtoken_from_env=True)
+	ngrok.set_auth_token(os.getenv("NGROK_AUTHTOKEN"))
+	tunnel = ngrok.connect(port)
 	print("AutoARISS started on " + tunnel.url() + "\n")
 	app.run(host="0.0.0.0", port=port)

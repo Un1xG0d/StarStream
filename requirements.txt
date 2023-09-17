@@ -1,8 +1,8 @@
 flask
 geopy
 gps3
-ngrok
 numpy
 openai
+pyngrok
 python-dotenv
 requests
