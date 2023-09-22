@@ -35,8 +35,11 @@ sudo sed -i 's/GPSD_OPTIONS=""/GPSD_OPTIONS="\/dev\/ttyUSB0"/' /etc/default/gpsd
 ### Set up API accounts
 You will need to create an [OpenAI API key](https://openai.com/blog/openai-api) to handle the audio-to-text transcriptions, and an [ngrok token](https://ngrok.com/) to expose the Flask app to the internet without any additional setup like port forwarding.
 
+You will also need to create a [Gmail app password](https://myaccount.google.com/apppasswords) to send the latest dashboard URL to yourself when the app is started. Make sure to update your email address in `mailer.py`.
+
 Once you have these, create a `.env` file in the root project directory and populate it with your personal tokens:
 ```
+GMAIL_APP_PASSWORD=xxxxxxxxxxxxxxxxxxx
 NGROK_AUTHTOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 OPENAI_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```

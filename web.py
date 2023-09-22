@@ -1,8 +1,10 @@
 import calculations
+import mailer
 import json
 import os
 import requests
 import time
+from datetime import datetime
 from dotenv import load_dotenv
 from flask import Flask, render_template
 from geopy.geocoders import Nominatim
@@ -89,4 +91,5 @@ if __name__ == "__main__":
 	ngrok.set_auth_token(os.getenv("NGROK_AUTHTOKEN"))
 	tunnel = ngrok.connect(port)
 	write_file("web_dashboard.url", tunnel.public_url + "\n")
+	mailer.send_email(datetime.now().strftime("%m-%d-%Y %H:%M"), tunnel.public_url)
 	app.run(host="0.0.0.0", port=port)
