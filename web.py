@@ -52,10 +52,6 @@ def read_file(filename):
 	with open(filename) as file:
 		return file.read()
 
-def write_file(file, contents):
-	with open(file, "w") as f:
-		f.write(contents)
-
 load_dotenv()
 app = Flask(__name__)
 agps_thread = AGPS3mechanism()
@@ -90,6 +86,5 @@ if __name__ == "__main__":
 	port = 8000
 	ngrok.set_auth_token(os.getenv("NGROK_AUTHTOKEN"))
 	tunnel = ngrok.connect(port)
-	write_file("web_dashboard.url", tunnel.public_url + "\n")
 	mailer.send_email(datetime.now().strftime("%m-%d-%Y %H:%M"), tunnel.public_url)
 	app.run(host="0.0.0.0", port=port)
