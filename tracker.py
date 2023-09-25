@@ -77,7 +77,7 @@ def update_transcript(timestamp_readable, transcript):
 
 def main():
 	append_to_log("logs/tracker_output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Started tracker." + "\n")
-	os.system("gpsmon")
+	os.system("gpsmon &")
 	config["user_location"] = get_user_location()
 	while True:
 		iss_location = get_iss_location()
