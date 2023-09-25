@@ -153,7 +153,7 @@ def get_iss_location(coords):
 	return d
 
 def get_elevation_of_location(coords):
-	return float(requests.get("https://epqs.nationalmap.gov/v1/json?x=" + str(coords[1]) + "&y=" + str(coords[0]) + "&wkid=4326&units=Meters&includeDate=false").json()["value"])
+	return float(requests.get("https://api.open-meteo.com/v1/elevation?latitude=" + str(coords[0]) + "&longitude=" + str(coords[1])).json()["elevation"][0])
 
 def get_distance_and_elevation_angle(coords_1, coords_2):
 	a = get_home_location(coords_1)
