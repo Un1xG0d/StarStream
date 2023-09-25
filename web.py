@@ -22,10 +22,10 @@ def get_distance_between(coords_1, coords_2):
 	distance_miles = distance * 0.621371
 	return distance_miles
 
-def get_geocoded_location(coords):
+def get_geocoded_location(coords, region):
 	geolocator = Nominatim(user_agent="GetLoc")
 	try:
-		return geolocator.reverse(coords).raw["address"]["state"]
+		return geolocator.reverse(coords).raw["address"][region]
 	except:
 		return "None"
 
@@ -62,8 +62,8 @@ agps_thread.run_thread()
 def dashboard():
 	iss_location = get_iss_location()
 	distance = round(get_distance_between(user_location, iss_location), 1)
-	user_geocoded_location = get_geocoded_location(user_location)
-	iss_geocoded_location = get_geocoded_location(iss_location)
+	user_geocoded_location = get_geocoded_location(user_location, "city")
+	iss_geocoded_location = get_geocoded_location(iss_location, "state")
 	recordings = load_json("logs/recordings.json")
 	return render_template("index.html", user_location=user_geocoded_location, iss_location=iss_geocoded_location, distance=distance, recordings=recordings)
 
