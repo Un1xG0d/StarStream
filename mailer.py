@@ -6,8 +6,8 @@ from email.mime.text import MIMEText
 load_dotenv()
 
 config = {
-	"sender": "bigalraff@gmail.com",
-	"recipients": ["bigalraff@gmail.com"]
+	"sender": os.getenv("GMAIL_ADDRESS"),
+	"recipients": [os.getenv("GMAIL_ADDRESS")]
 }
 
 def send_email(timestamp, dashboard_url):
