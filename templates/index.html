@@ -92,21 +92,21 @@
           <div class="col-lg-3 col-6">
             <div class="small-box bg-secondary">
               <div class="inner">
-                <h3>{{ unique_dates|length }}</h3>
+                <h3 id="distance">{{ distance }}</h3>
 
-                <p>Unique Dates</p>
+                <p>Current Distance from ISS</p>
               </div>
               <div class="icon">
-                <i class="ion ion-calendar"></i>
+                <i class="ion ion-arrow-resize"></i>
               </div>
             </div>
           </div>
           <div class="col-lg-3 col-6">
             <div class="small-box bg-info">
               <div class="inner">
-                <h3 id="distance">{{ distance }}</h3>
+                <h3>{{ user_location }}</h3>
 
-                <p>Current Distance from ISS</p>
+                <p>Current Location of User</p>
               </div>
               <div class="icon">
                 <i class="ion ion-location"></i>
