@@ -78,7 +78,7 @@ def controls_route():
 	if request.method == "GET":
 		return render_template("controls.html")
 	if request.method == "POST":
-		controls.start_manual_recording(request.form.frequency, request.form.seconds_to_record)
+		controls.start_manual_recording(request.form["frequency"], request.form["seconds_to_record"])
 		return redirect("/recordings")
 
 @app.route("/logs", methods=["GET"])
