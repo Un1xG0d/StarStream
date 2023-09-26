@@ -41,6 +41,7 @@ def get_user_location():
 		return [agps_thread.data_stream.lat, agps_thread.data_stream.lon]
 	else:
 		get_user_location()
+	return [agps_thread.data_stream.lat, agps_thread.data_stream.lon]
 
 def load_json(filename):
 	with open(filename) as file:
