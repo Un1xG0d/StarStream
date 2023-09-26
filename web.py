@@ -1,4 +1,5 @@
 import calculations
+import controls
 import mailer
 import json
 import os
@@ -6,7 +7,7 @@ import requests
 import time
 from datetime import datetime
 from dotenv import load_dotenv
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from geopy.geocoders import Nominatim
 from gps3.agps3threaded import AGPS3mechanism
 from pyngrok import ngrok
@@ -76,6 +77,14 @@ def recordings():
 def logs():
 	tracker_output = read_file("logs/tracker_output.log").split("\n")
 	return render_template("logs.html", logs=tracker_output)
+
+@app.route("/controls")
+def controls():
+	if request.method == "GET":
+		return render_template("controls.html")
+	if request.method == "POST":
+		controls.start_manual_recording(request.form.frequency, request.form.seconds_to_record)
+		return redirect("/recordings")
 
 if __name__ == "__main__":
 	check_logs_exist()
