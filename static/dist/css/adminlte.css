@@ -234,10 +234,6 @@ button {
   border-radius: 0;
 }
 
-button:active {
-  background-color: #6c757d;
-}
-
 button:focus:not(:focus-visible) {
   outline: 0;
 }
@@ -2612,7 +2608,7 @@ fieldset:disabled a.btn {
 .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,
 .show > .btn-primary.dropdown-toggle {
   color: #fff;
-  background-color: #0062cc;
+  background-color: #6c757d;
   border-color: #005cbf;
 }
 
