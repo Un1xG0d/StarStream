@@ -59,7 +59,7 @@ agps_thread = AGPS3mechanism()
 agps_thread.stream_data()
 agps_thread.run_thread()
 
-@app.route("/")
+@app.route("/", methods=["GET"])
 def dashboard_route():
 	iss_location = get_iss_location()
 	distance = round(get_distance_between(user_location, iss_location), 1)
@@ -68,7 +68,7 @@ def dashboard_route():
 	recordings = load_json("logs/recordings.json")
 	return render_template("index.html", user_location=user_geocoded_location, iss_location=iss_geocoded_location, distance=distance, recordings=recordings)
 
-@app.route("/recordings")
+@app.route("/recordings", methods=["GET"])
 def recordings_route():
 	recordings = load_json("logs/recordings.json")
 	return render_template("recordings.html", recordings=recordings)
@@ -81,7 +81,7 @@ def controls_route():
 		controls.start_manual_recording(request.form.frequency, request.form.seconds_to_record)
 		return redirect("/recordings")
 
-@app.route("/logs")
+@app.route("/logs", methods=["GET"])
 def logs_route():
 	tracker_output = read_file("logs/tracker_output.log").split("\n")
 	return render_template("logs.html", logs=tracker_output)
