@@ -16,7 +16,7 @@ It uses the real-time location of the ISS to determine distance from the user an
 
 ## Getting Started
 ### Configure Raspberry Pi
-Install [Raspberry Pi OS Lite (64 bit)](https://www.raspberrypi.com/software/) onto your Raspberry Pi and configure the WiFi & SSH settings.
+Install [Raspberry Pi OS Lite (64 bit)](https://www.raspberrypi.com/software/) onto your Raspberry Pi, configure the WiFi settings, and create an account with the username `admin`.
 
 This is the headless mode without a GUI, which will make the system last longer on battery power.
 
@@ -49,7 +49,7 @@ OPENAI_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 Before starting the tracker, make sure your SDR is connected via USB. I am using the RTL-SDR kit from [this link](https://a.co/d/3p9rCar).
 
 ### Run the bootstrap script
-Run `bootstrap.sh` to configure a crontab that automatically starts both the tracking script and the web dashboard on boot.
+Run `bootstrap.sh` once to configure a crontab that automatically starts both the tracking script and the web dashboard on boot.
 ```
 bash bootstrap.sh
 ```
