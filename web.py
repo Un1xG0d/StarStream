@@ -7,7 +7,7 @@ import requests
 import time
 from datetime import datetime
 from dotenv import load_dotenv
-from flask import Flask, render_template, request
+from flask import Flask, redirect, render_template, request
 from geopy.geocoders import Nominatim
 from gps3.agps3threaded import AGPS3mechanism
 from pyngrok import ngrok
