@@ -38,7 +38,7 @@ def execute_command(command):
 
 def get_user_location():
 	print("Attempting to get current location...")
-	time.sleep(45)
+	time.sleep(15)
 	if type(agps_thread.data_stream.lat) is float:
 		return [agps_thread.data_stream.lat, agps_thread.data_stream.lon]
 	else:
@@ -77,7 +77,6 @@ def update_transcript(timestamp_readable, transcript):
 
 def main():
 	append_to_log("logs/tracker_output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Started tracker." + "\n")
-	os.system("gpsmon & > /dev/null 2>&1")
 	config["user_location"] = get_user_location()
 	while True:
 		iss_location = get_iss_location()
