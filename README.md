@@ -71,6 +71,8 @@ The Dashboard page has general information on the status of the ISS, your record
 
 The Recordings page lets you analyze individual captures, play the converted audio files, and read transcripts of the communications.
 
+The Controls page allows you to specify parameters and manually capture a recording.
+
 The Logs page displays the most recent output of the tracker script.
 
 ## References
