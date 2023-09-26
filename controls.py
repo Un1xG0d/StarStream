@@ -63,7 +63,7 @@ def start_manual_recording(frequency, seconds_to_record):
 		"transcript": ""
 	}
 	append_to_log("logs/recordings.json", json.dumps(recording_output) + "\n")
-	execute_command("rtl_sdr -f " + frequency + "M -s 256k -n " + 256000 * seconds_to_record + " static/recordings/" + timestamp_epoch + ".iq")
+	execute_command("rtl_sdr -f " + frequency + "M -s 256k -n " + str(256000 * int(seconds_to_record)) + " static/recordings/" + timestamp_epoch + ".iq")
 	execute_command("cat static/recordings/" + timestamp_epoch + ".iq | ./demodulator.py > static/recordings/" + timestamp_epoch + ".raw")
 	execute_command("ffmpeg -f s16le -ac 1 -ar 256000 -acodec pcm_s16le -i static/recordings/" + timestamp_epoch + ".raw -af 'highpass=f=200, lowpass=f=3000, volume=4' static/recordings/" + timestamp_epoch + ".mp3")
 	execute_command("rm -rf static/recordings/" + timestamp_epoch + ".iq static/recordings/" + timestamp_epoch + ".raw")
