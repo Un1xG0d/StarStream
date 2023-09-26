@@ -48,10 +48,10 @@ def update_transcript(timestamp_readable, transcript):
 			file.write(f"{json.dumps(line)}\n")
 
 def start_manual_recording(frequency, seconds_to_record):
-	append_to_log("logs/tracker_output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Started manual recording on " + frequency + " MHz." + "\n")
 	timestamp = datetime.now()
 	timestamp_readable = timestamp.strftime("%m-%d-%Y %H:%M:%S")
 	timestamp_epoch = timestamp.strftime("%s")
+	append_to_log("logs/tracker_output.log", "[" + timestamp_readable + "] Started manual recording on " + frequency + " MHz." + "\n")
 	recording_output = {
 		"timestamp": timestamp_readable,
 		"user_location": "None",
