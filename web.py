@@ -78,7 +78,7 @@ def logs():
 	tracker_output = read_file("logs/tracker_output.log").split("\n")
 	return render_template("logs.html", logs=tracker_output)
 
-@app.route("/controls")
+@app.route("/controls", methods=["GET", "POST"])
 def controls():
 	if request.method == "GET":
 		return render_template("controls.html")
