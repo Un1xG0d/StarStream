@@ -151,7 +151,7 @@
                   <thead>
                     <tr>
                       <th>Timestamp</th>
-                      <th>Distance</th>
+                      <th>Frequency</th>
                       <th>Status</th>
                     </tr>
                   </thead>
@@ -159,7 +159,7 @@
                     {% for recording in recordings %}
                       <tr>
                         <td>{{ recording["timestamp"] }}</td>
-                        <td>{{ recording["distance"] }}</td>
+                        <td>{{ recording["frequency"] }}</td>
                         <td>
                           {% if recording["audio_file"] != "" %}
                             <span class="badge bg-success">complete</span>
