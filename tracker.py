@@ -43,6 +43,7 @@ def get_user_location():
 		return [agps_thread.data_stream.lat, agps_thread.data_stream.lon]
 	else:
 		get_user_location()
+	return [agps_thread.data_stream.lat, agps_thread.data_stream.lon]
 
 def get_iss_location():
 	r = requests.get("http://api.open-notify.org/iss-now.json")
