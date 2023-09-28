@@ -46,8 +46,8 @@ def get_user_location():
 	return [agps_thread.data_stream.lat, agps_thread.data_stream.lon]
 
 def get_iss_location():
-	r = requests.get("http://api.open-notify.org/iss-now.json")
-	return [float(r.json()["iss_position"]["latitude"]), float(r.json()["iss_position"]["longitude"])]
+	r = requests.get("http://api.open-notify.org/iss-now.json").json()
+	return [float(r["iss_position"]["latitude"]), float(r["iss_position"]["longitude"])]
 
 def transcribe_audio(timestamp_epoch):
 	return openai.Audio.transcribe("whisper-1", open("static/recordings/" + timestamp_epoch + ".mp3", "rb"))["text"]

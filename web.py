@@ -31,8 +31,8 @@ def get_geocoded_location(coords, region):
 		return "None"
 
 def get_iss_location():
-	r = requests.get("http://api.open-notify.org/iss-now.json")
-	return [float(r.json()["iss_position"]["latitude"]), float(r.json()["iss_position"]["longitude"])]
+	r = requests.get("http://api.open-notify.org/iss-now.json").json()
+	return [float(r["iss_position"]["latitude"]), float(r["iss_position"]["longitude"])]
 
 def get_user_location():
 	print("Attempting to get current location...")
