@@ -26,13 +26,13 @@ def get_distance_between(coords_1, coords_2):
 def get_geocoded_location(coords, region):
 	geolocator = Nominatim(user_agent="GetLoc")
 	try:
-		return geolocator.reverse(coords).raw["address"][region]
+		return geolocator.reverse([coords[0], coords[1]]).raw["address"][region]
 	except:
 		return "None"
 
 def get_iss_location():
-	r = requests.get("http://api.open-notify.org/iss-now.json").json()
-	return [float(r["iss_position"]["latitude"]), float(r["iss_position"]["longitude"])]
+	r = requests.get("https://api.wheretheiss.at/v1/satellites/25544").json()
+	return [float(r["latitude"]), float(r["longitude"]), float(r["altitude"])]
 
 def get_user_location():
 	print("Attempting to get current location...")

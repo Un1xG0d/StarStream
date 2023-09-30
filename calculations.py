@@ -149,7 +149,7 @@ def get_iss_location(coords):
 	d = {}
 	d["lat"] = coords[0]
 	d["lon"] = coords[1]
-	d["elv"] = 420000
+	d["elv"] = coords[2] * 1000
 	return d
 
 def get_elevation_of_location(coords):

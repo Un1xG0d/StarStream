@@ -76,6 +76,6 @@ The Controls page allows you to specify parameters and manually capture a record
 The Logs page displays the most recent output of the tracker script.
 
 ## References
-[Open Notify API](http://api.open-notify.org/)
+[Where the ISS at? API](https://wheretheiss.at/w/developer)
 
 [Listening to radio with Python](https://epxx.co/artigos/pythonfm_en.html)
