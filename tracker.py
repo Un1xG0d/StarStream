@@ -49,6 +49,7 @@ def get_user_location():
 
 def get_iss_location():
 	r = requests.get("https://api.wheretheiss.at/v1/satellites/25544").json()
+	print(f"Got ISS location: [{r['latitude']},{r['longitude']},{r['altitude']}]")
 	return [float(r["latitude"]), float(r["longitude"]), float(r["altitude"])]
 
 def transcribe_audio(timestamp_epoch):
