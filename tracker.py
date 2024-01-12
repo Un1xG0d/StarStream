@@ -80,8 +80,8 @@ def update_transcript(timestamp_readable, transcript):
 			file.write(f"{json.dumps(line)}\n")
 
 def main():
-	append_to_log("logs/tracker_output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Started tracker." + "\n")
 	config["user_location"] = get_user_location()
+	append_to_log("logs/tracker_output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Started tracker." + "\n")
 	while True:
 		iss_location = get_iss_location()
 		distance, elevation_angle = calculations.get_distance_and_elevation_angle(config["user_location"], iss_location)
