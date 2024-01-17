@@ -69,7 +69,7 @@ def main():
 	passes = get_noaa_passes()
 	while True:
 		for p in passes:
-			if p["next_pass_utc"] - int(datetime.now().strftime("%s")) <= config["interval_seconds"]:
+			if abs(p["next_pass_utc"] - int(datetime.now().strftime("%s"))) <= config["interval_seconds"]:
 				timestamp = datetime.now()
 				timestamp_readable = timestamp.strftime("%m-%d-%Y %H:%M:%S")
 				timestamp_epoch = timestamp.strftime("%s")
