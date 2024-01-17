@@ -24,7 +24,14 @@ This is the headless mode without a GUI, which will make the system last longer 
 Install all required software with the commands:
 ```
 pip3 install -r requirements.txt
-sudo apt install -y ffmpeg gpsd gpsd-clients python3-pip rtl-sdr
+sudo apt install -y ffmpeg gpsd gpsd-clients python3-pip rtl-sdr sox
+```
+
+You will also need to install the [NOAA-APT image decoder](https://noaa-apt.mbernardi.com.ar/:
+```
+wget https://github.com/martinber/noaa-apt/releases/download/v1.4.1/noaa-apt-1.4.1-aarch64-linux-gnu-nogui.zip -O /home/admin/AutoARISS/decoder/noaa-apt-1.4.1-aarch64-linux-gnu-nogui.zip
+unzip /home/admin/AutoARISS/decoder/noaa-apt-1.4.1-aarch64-linux-gnu-nogui.zip -d /home/admin/AutoARISS/decoder/
+rm -rf /home/admin/AutoARISS/decoder/noaa-apt-1.4.1-aarch64-linux-gnu-nogui.zip
 ```
 
 You may need to configure GPSD to use your [USB GPS receiver](https://www.amazon.com/GlobalSat-BU-353-S4-Receiver-Black-Improved-New/dp/B098L799NH):
@@ -37,10 +44,13 @@ You will need to create an [OpenAI API key](https://openai.com/blog/openai-api) 
 
 You will also need to create a [Gmail app password](https://myaccount.google.com/apppasswords) to send the latest dashboard URL to yourself when the app is started.
 
+If you want to capture images from the NOAA satellites, you will also need an API key for the [N2YO API](https://www.n2yo.com/login/register/).
+
 Once you have these, create a `.env` file in the root project directory and populate it with your personal tokens:
 ```
 GMAIL_ADDRESS=example@gmail.com
 GMAIL_APP_PASSWORD=xxxxxxxxxxxxxxxxxxx
+N2YO_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxx
 NGROK_AUTHTOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 OPENAI_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
@@ -54,10 +64,10 @@ Run `bootstrap.sh` once to configure a crontab that automatically starts both th
 bash bootstrap.sh
 ```
 
-### Start the tracking script
-Start the tracking script as a background process:
+### Start the ISS tracking script
+Start the ISS tracking script as a background process:
 ```
-python3 tracker.py &
+python3 tracker_iss.py &
 ```
 
 This script will constantly query the location of the ISS and will start recording when the distance is less than 400 miles away from your current location and the elevation is more than 25 degrees. You can adjust these variables in the `config` object.
@@ -76,6 +86,10 @@ The Controls page allows you to specify parameters and manually capture a record
 The Logs page displays the most recent output of the tracker script.
 
 ## References
-[Where the ISS at? API](https://wheretheiss.at/w/developer)
+[NOAA-APT Image Decoder Documentation](https://noaa-apt.mbernardi.com.ar/usage.html#terminal-1)
+
+[N2YO API Documentation](https://www.n2yo.com/api/#radiopasses)
+
+[Where the ISS at? API Documentation](https://wheretheiss.at/w/developer)
 
 [Listening to radio with Python](https://epxx.co/artigos/pythonfm_en.html)
