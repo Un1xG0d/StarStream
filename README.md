@@ -27,7 +27,7 @@ pip3 install -r requirements.txt
 sudo apt install -y ffmpeg gpsd gpsd-clients python3-pip rtl-sdr sox
 ```
 
-You will also need to install the [NOAA-APT image decoder](https://noaa-apt.mbernardi.com.ar/:
+You will also need to install the [NOAA-APT image decoder](https://noaa-apt.mbernardi.com.ar/):
 ```
 wget https://github.com/martinber/noaa-apt/releases/download/v1.4.1/noaa-apt-1.4.1-aarch64-linux-gnu-nogui.zip -O /home/admin/AutoARISS/decoder/noaa-apt-1.4.1-aarch64-linux-gnu-nogui.zip
 unzip /home/admin/AutoARISS/decoder/noaa-apt-1.4.1-aarch64-linux-gnu-nogui.zip -d /home/admin/AutoARISS/decoder/
