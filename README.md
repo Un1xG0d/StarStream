@@ -4,6 +4,8 @@ The idea behind this project is to automate the receiving and logging of communi
 
 It uses the real-time location of the ISS to determine distance from the user and automatically starts receiving through an attached SDR when the conditions are deemed acceptable.
 
+It can also automatically capture and process NOAA weather satellite images.
+
 <h1 align="center">
   <img src="https://github.com/Un1xG0d/AutoARISS/blob/master/images/picture_go_kit.png">
   <br>
@@ -21,10 +23,10 @@ Install [Raspberry Pi OS Lite (64 bit)](https://www.raspberrypi.com/software/) o
 This is the headless mode without a GUI, which will make the system last longer on battery power.
 
 ### Install dependencies
-Install all required software with the commands:
+Install required software with the commands:
 ```
-pip3 install -r requirements.txt
 sudo apt install -y ffmpeg gpsd gpsd-clients python3-pip rtl-sdr sox
+pip3 install -r requirements.txt
 ```
 
 You will also need to install the [NOAA-APT image decoder](https://noaa-apt.mbernardi.com.ar/):
@@ -56,10 +58,10 @@ OPENAI_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
 ### Connect your SDR
-Before starting the tracker, make sure your SDR is connected via USB. I am using the RTL-SDR kit from [this link](https://a.co/d/3p9rCar).
+Before starting the trackers, make sure your SDR is connected via USB. I am using the RTL-SDR kit from [this link](https://a.co/d/3p9rCar).
 
 ### Run the bootstrap script
-Run `bootstrap.sh` once to configure a crontab that automatically starts both the tracking script and the web dashboard on boot.
+Run `bootstrap.sh` once to configure a crontab that automatically starts both the tracking scripts and the web dashboard on boot.
 ```
 bash bootstrap.sh
 ```
