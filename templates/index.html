@@ -185,6 +185,33 @@
                 <iframe sandbox="allow-same-origin allow-scripts" src="https://isstracker.spaceflight.esa.int/" style="border: 0 none transparent;" id="iss-pos" width="100%" height="350px" frameborder="0" scrolling="no" allowfullscreen title="ISS tracking map"></iframe>
               </div>
             </div>
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">NOAA Passes</h3>
+              </div>
+              <div class="card-body p-0">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Satellite</th>
+                      <th>Timestamp</th>
+                      <th>Elevation</th>
+                      <th>Duration</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for p in passes %}
+                      <tr>
+                        <td>{{ p["name"] }}</td>
+                        <td>{{ p["next_pass_local"] }}</td>
+                        <td>{{ p["max_elevation"] }}</td>
+                        <td>{{ p["duration"] }} seconds</td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </section>
         </div>
       </div>

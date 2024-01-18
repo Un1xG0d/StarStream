@@ -1,6 +1,7 @@
 import calculations
 import controls
 import mailer
+import natsort
 import json
 import os
 import requests
@@ -10,6 +11,7 @@ from dotenv import load_dotenv
 from flask import Flask, redirect, render_template, request
 from geopy.geocoders import Nominatim
 from gps3.agps3threaded import AGPS3mechanism
+from operator import itemgetter
 from pyngrok import ngrok
 
 def check_logs_exist():
@@ -33,6 +35,17 @@ def get_geocoded_location(coords, region):
 def get_iss_location():
 	r = requests.get("https://api.wheretheiss.at/v1/satellites/25544").json()
 	return [float(r["latitude"]), float(r["longitude"]), float(r["altitude"])]
+
+def get_noaa_passes():
+	passes = []
+	noaa_satellites = [{"name": "NOAA 15", "id": 25338, "downlink": 137.62}, {"name": "NOAA 18", "id": 28654, "downlink": 137.9125}, {"name": "NOAA 19", "id": 33591, "downlink": 137.1}]
+	for sat in noaa_satellites:
+		r = requests.get("https://api.n2yo.com/rest/v1/satellite/radiopasses/" + str(sat["id"]) + "/" + str(config["user_location"][0]) + "/" + str(config["user_location"][1]) + "/0/1/40/&apiKey=" + os.getenv("N2YO_API_KEY")).json()
+		local_time = datetime.fromtimestamp(r["passes"][0]["startUTC"]).strftime("%m-%d-%Y %H:%M")
+		duration = datetime.fromtimestamp(r["passes"][0]["endUTC"]) - datetime.fromtimestamp(r["passes"][0]["startUTC"])
+		passes.append({"name": sat["name"], "next_pass_utc": r["passes"][0]["startUTC"], "next_pass_local": local_time, "max_elevation": int(round(r["passes"][0]["maxEl"], 0)), "duration": int(duration.total_seconds()), "downlink": sat["downlink"]})
+	passes = natsort.natsorted(passes, key=itemgetter(*["next_pass_utc"]))
+	return passes
 
 def get_user_location():
 	print("Attempting to get current location...")
@@ -68,8 +81,9 @@ def dashboard_route():
 	distance = round(get_distance_between(user_location, iss_location), 1)
 	user_geocoded_location = get_geocoded_location(user_location, "city")
 	iss_geocoded_location = get_geocoded_location(iss_location, "state")
+	passes = get_noaa_passes()
 	recordings = load_json("logs/recordings.json")
-	return render_template("index.html", user_location=user_geocoded_location, iss_location=iss_geocoded_location, distance=distance, recordings=recordings)
+	return render_template("index.html", user_location=user_geocoded_location, iss_location=iss_geocoded_location, distance=distance, passes=passes, recordings=recordings)
 
 @app.route("/recordings", methods=["GET"])
 def recordings_route():
