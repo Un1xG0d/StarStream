@@ -193,8 +193,8 @@
                 <table class="table">
                   <thead>
                     <tr>
-                      <th>Satellite</th>
                       <th>Timestamp</th>
+                      <th>Satellite</th>
                       <th>Elevation</th>
                       <th>Duration</th>
                     </tr>
@@ -202,8 +202,8 @@
                   <tbody>
                     {% for p in passes %}
                       <tr>
-                        <td>{{ p["name"] }}</td>
                         <td>{{ p["next_pass_local"] }}</td>
+                        <td>{{ p["name"] }}</td>
                         <td>{{ p["max_elevation"] }}*</td>
                         <td>{{ p["duration"] }} seconds</td>
                       </tr>
