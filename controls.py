@@ -84,7 +84,7 @@ def start_manual_recording(frequency, seconds_to_record):
 	if "137" in frequency:
 		noaa_satellites = [{"name": "NOAA 15", "id": 25338, "downlink": 137.62}, {"name": "NOAA 18", "id": 28654, "downlink": 137.9125}, {"name": "NOAA 19", "id": 33591, "downlink": 137.1}]
 		for sat in noaa_satellites:
-			if frequency == sat["downlink"]:
+			if float(frequency) == sat["downlink"]:
 				execute_command("decoder/noaa-apt static/recordings/" + timestamp_epoch + ".wav --sat " + sat["name"].lower().replace(" ", "_") + " -o static/images/" + timestamp_epoch + ".png --rotate yes")
 				update_image(timestamp_readable, timestamp_epoch)
 	else:
