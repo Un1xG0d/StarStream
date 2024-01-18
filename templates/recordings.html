@@ -109,7 +109,7 @@
                   <td>{{ recording["timestamp"] }}</td>
                   <td>{{ recording["frequency"] }}</td>
                   <td><audio src="{{ url_for('static', filename=recording['audio_file']) }}" controls></audio></td>
-                  {% if ('image' in recording) and (recording['image'] != '') %}
+                  {% if ("image" in recording) and (recording["image"] != "") %}
                   <td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default" onclick="showImage('{{ recording['image'] }}')">View Image</button></td>
                   {% else %}
                   <td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default" onclick="showTranscript('{{ recording['transcript'] }}')">View Transcript</button></td>
