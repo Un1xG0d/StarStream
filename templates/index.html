@@ -178,7 +178,7 @@
             <div class="card">
               <div class="card-header border-0">
                 <h3 class="card-title">
-                  Realtime Position
+                  Realtime ISS Position
                 </h3>
               </div>
               <div class="card-body">
@@ -187,7 +187,7 @@
             </div>
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">NOAA Passes</h3>
+                <h3 class="card-title">Upcoming NOAA Passes</h3>
               </div>
               <div class="card-body p-0">
                 <table class="table">
@@ -204,7 +204,7 @@
                       <tr>
                         <td>{{ p["name"] }}</td>
                         <td>{{ p["next_pass_local"] }}</td>
-                        <td>{{ p["max_elevation"] }}</td>
+                        <td>{{ p["max_elevation"] }}*</td>
                         <td>{{ p["duration"] }} seconds</td>
                       </tr>
                     {% endfor %}
