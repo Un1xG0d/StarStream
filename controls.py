@@ -30,7 +30,7 @@ def update_audio_file(timestamp_readable, timestamp_epoch):
 			lines.append(json.loads(line))
 	for line in lines:
 		if line["timestamp"] == timestamp_readable:
-			line["audio_file"] = "recordings/" + timestamp_epoch + ".mp3"
+			line["audio_file"] = "recordings/" + timestamp_epoch + ".wav"
 	with open("logs/recordings.json", "w") as file:
 		for line in lines:
 			file.write(f"{json.dumps(line)}\n")
@@ -63,12 +63,13 @@ def start_manual_recording(frequency, seconds_to_record):
 		"transcript": ""
 	}
 	append_to_log("logs/recordings.json", json.dumps(recording_output) + "\n")
-	execute_command("rtl_sdr -f " + frequency + "M -s 256k -n " + str(256000 * int(seconds_to_record)) + " static/recordings/" + timestamp_epoch + ".iq")
-	execute_command("cat static/recordings/" + timestamp_epoch + ".iq | ./demodulator.py > static/recordings/" + timestamp_epoch + ".raw")
-	execute_command("ffmpeg -f s16le -ac 1 -ar 256000 -acodec pcm_s16le -i static/recordings/" + timestamp_epoch + ".raw -af 'highpass=f=200, lowpass=f=3000, volume=4' static/recordings/" + timestamp_epoch + ".mp3")
-	execute_command("rm -rf static/recordings/" + timestamp_epoch + ".iq static/recordings/" + timestamp_epoch + ".raw")
+	execute_command("timeout " + seconds_to_record + "s rtl_fm -f " + frequency + "M -s 55k -E wav -E deemp -F 9 static/recordings/" + timestamp_epoch + ".raw")
+	execute_command("sox -t raw -r 55k -es -b 16 -c 1 static/recordings/" + timestamp_epoch + ".raw static/recordings/" + timestamp_epoch + ".wav")
+	execute_command("rm -rf static/recordings/" + timestamp_epoch + ".raw")
 	update_audio_file(timestamp_readable, timestamp_epoch)
-	append_to_log("logs/tracker_output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Saved recording to: " + timestamp_epoch + ".mp3" + "\n")
+	append_to_log("logs/tracker_output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Saved recording to: " + timestamp_epoch + ".wav" + "\n")
+	execute_command("ffmpeg -i static/recordings/" + timestamp_epoch + ".wav static/recordings/" + timestamp_epoch + ".mp3")
 	transcript = transcribe_audio(timestamp_epoch)
 	update_transcript(timestamp_readable, transcript)
 	append_to_log("logs/tracker_output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Finished transcribing audio." + "\n")
+	execute_command("rm -rf static/recordings/" + timestamp_epoch + ".mp3")
