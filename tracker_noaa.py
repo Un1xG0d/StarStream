@@ -64,6 +64,18 @@ def update_audio_file(timestamp_readable, timestamp_epoch):
 		for line in lines:
 			file.write(f"{json.dumps(line)}\n")
 
+def update_image(timestamp_readable, timestamp_epoch):
+	lines = []
+	with open("logs/recordings.json") as file:
+		for line in file.readlines():
+			lines.append(json.loads(line))
+	for line in lines:
+		if line["timestamp"] == timestamp_readable:
+			line["image"] = "images/" + timestamp_epoch + ".png"
+	with open("logs/recordings.json", "w") as file:
+		for line in lines:
+			file.write(f"{json.dumps(line)}\n")
+
 def main():
 	config["user_location"] = get_user_location()
 	passes = get_noaa_passes()
@@ -81,14 +93,17 @@ def main():
 					"elevation_angle": "None",
 					"frequency": str(p["downlink"]),
 					"audio_file": "",
-					"transcript": ""
+					"transcript": "",
+					"image": ""
 				}
 				append_to_log("logs/recordings.json", json.dumps(recording_output) + "\n")
 				execute_command("timeout " + str(p["duration"]) + "s rtl_fm -f " + str(p["downlink"]) + "M -s 55k -E wav -E deemp -F 9 static/recordings/" + timestamp_epoch + ".raw")
 				execute_command("sox -t raw -r 55k -es -b 16 -c 1 static/recordings/" + timestamp_epoch + ".raw static/recordings/" + timestamp_epoch + ".wav rate 11025")
 				execute_command("rm -rf static/recordings/" + timestamp_epoch + ".raw")
 				update_audio_file(timestamp_readable, timestamp_epoch)
-		
+				execute_command("decoder/noaa-apt static/recordings/" + timestamp_epoch + ".wav --sat " + p["name"].lower().replace(" ", "_") + " -o static/images/" + timestamp_epoch + ".png --rotate yes")
+				update_image(timestamp_readable, timestamp_epoch)
+
 		print("Sleeping for " + str(config["interval_seconds"]) + " seconds.")
 		time.sleep(config["interval_seconds"])
 
