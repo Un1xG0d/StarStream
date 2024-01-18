@@ -98,8 +98,6 @@
             <thead>
               <tr>
                 <th>Timestamp</th>
-                <th>Distance</th>
-                <th>Elevation</th>
                 <th>Frequency</th>
                 <th>Audio</th>
                 <th>View Content</th>
@@ -109,8 +107,6 @@
               {% for recording in recordings %}
                 <tr>
                   <td>{{ recording["timestamp"] }}</td>
-                  <td>{{ recording["distance"] }}</td>
-                  <td>{{ recording["elevation_angle"] }}</td>
                   <td>{{ recording["frequency"] }}</td>
                   <td><audio src="{{ url_for('static', filename=recording['audio_file']) }}" controls></audio></td>
                   {% if 'image' in recording %}
