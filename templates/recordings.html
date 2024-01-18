@@ -134,7 +134,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <p id="transcript-text"></p>
+              <p id="content-text"></p>
             </div>
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -166,11 +166,11 @@
 </body>
 <script>
   function showImage(text) {
-    document.getElementById("transcript-text").innerHTML = "<img src='static/" + text + "' width='100%'>";
+    document.getElementById("content-text").innerHTML = "<img src='static/" + text + "' width='100%'>";
   }
 
   function showTranscript(text) {
-    document.getElementById("transcript-text").innerHTML = text;
+    document.getElementById("content-text").innerHTML = text;
   }
 </script>
 </html>
