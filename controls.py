@@ -81,7 +81,7 @@ def start_manual_recording(frequency, seconds_to_record):
 	execute_command("rm -rf static/recordings/" + timestamp_epoch + ".raw")
 	update_audio_file(timestamp_readable, timestamp_epoch)
 	append_to_log("logs/tracker_output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Saved recording to: " + timestamp_epoch + ".wav" + "\n")
-	if 137 in frequency:
+	if "137" in frequency:
 		noaa_satellites = [{"name": "NOAA 15", "id": 25338, "downlink": 137.62}, {"name": "NOAA 18", "id": 28654, "downlink": 137.9125}, {"name": "NOAA 19", "id": 33591, "downlink": 137.1}]
 		for sat in noaa_satellites:
 			if frequency == sat["downlink"]:
