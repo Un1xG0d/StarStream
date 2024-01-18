@@ -102,7 +102,7 @@
                 <th>Elevation</th>
                 <th>Frequency</th>
                 <th>Audio</th>
-                <th>Transcript</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -113,7 +113,11 @@
                   <td>{{ recording["elevation_angle"] }}</td>
                   <td>{{ recording["frequency"] }}</td>
                   <td><audio src="{{ url_for('static', filename=recording['audio_file']) }}" controls></audio></td>
-                  <td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default" onclick="showTranscript('{{ recording['transcript'] }}')">Show</button></td>
+                  {% if 'image' in recording %}
+                  <td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default" onclick="showImage('{{ recording['image'] }}')">View Image</button></td>
+                  {% else %}
+                  <td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default" onclick="showTranscript('{{ recording['transcript'] }}')">View Transcript</button></td>
+                  {% endif %}
                 </tr>
               {% endfor %}
             </tbody>
@@ -161,6 +165,10 @@
 <script src="{{ url_for('static', filename='dist/js/adminlte.js') }}"></script>
 </body>
 <script>
+  function showImage(text) {
+    document.getElementById("transcript-text").innerHTML = "<img src='" + text + "'>";
+  }
+
   function showTranscript(text) {
     document.getElementById("transcript-text").innerHTML = text;
   }
