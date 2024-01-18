@@ -35,6 +35,18 @@ def update_audio_file(timestamp_readable, timestamp_epoch):
 		for line in lines:
 			file.write(f"{json.dumps(line)}\n")
 
+def update_image(timestamp_readable, timestamp_epoch):
+	lines = []
+	with open("logs/recordings.json") as file:
+		for line in file.readlines():
+			lines.append(json.loads(line))
+	for line in lines:
+		if line["timestamp"] == timestamp_readable:
+			line["image"] = "images/" + timestamp_epoch + ".png"
+	with open("logs/recordings.json", "w") as file:
+		for line in lines:
+			file.write(f"{json.dumps(line)}\n")
+
 def update_transcript(timestamp_readable, transcript):
 	lines = []
 	with open("logs/recordings.json") as file:
@@ -60,7 +72,8 @@ def start_manual_recording(frequency, seconds_to_record):
 		"elevation_angle": "None",
 		"frequency": frequency,
 		"audio_file": "",
-		"transcript": ""
+		"transcript": "",
+		"image": ""
 	}
 	append_to_log("logs/recordings.json", json.dumps(recording_output) + "\n")
 	execute_command("timeout " + seconds_to_record + "s rtl_fm -f " + frequency + "M -s 55k -E wav -E deemp -F 9 static/recordings/" + timestamp_epoch + ".raw")
@@ -68,8 +81,12 @@ def start_manual_recording(frequency, seconds_to_record):
 	execute_command("rm -rf static/recordings/" + timestamp_epoch + ".raw")
 	update_audio_file(timestamp_readable, timestamp_epoch)
 	append_to_log("logs/tracker_output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Saved recording to: " + timestamp_epoch + ".wav" + "\n")
-	execute_command("ffmpeg -i static/recordings/" + timestamp_epoch + ".wav static/recordings/" + timestamp_epoch + ".mp3")
-	transcript = transcribe_audio(timestamp_epoch)
-	update_transcript(timestamp_readable, transcript)
-	append_to_log("logs/tracker_output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Finished transcribing audio." + "\n")
-	execute_command("rm -rf static/recordings/" + timestamp_epoch + ".mp3")
+	if 137 in frequency:
+		execute_command("decoder/noaa-apt static/recordings/" + timestamp_epoch + ".wav --sat " + p["name"].lower().replace(" ", "_") + " -o static/images/" + timestamp_epoch + ".png --rotate yes")
+		update_image(timestamp_readable, timestamp_epoch)
+	else:
+		execute_command("ffmpeg -i static/recordings/" + timestamp_epoch + ".wav static/recordings/" + timestamp_epoch + ".mp3")
+		transcript = transcribe_audio(timestamp_epoch)
+		update_transcript(timestamp_readable, transcript)
+		append_to_log("logs/tracker_output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Finished transcribing audio." + "\n")
+		execute_command("rm -rf static/recordings/" + timestamp_epoch + ".mp3")
