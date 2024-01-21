@@ -82,7 +82,7 @@ python3 tracker_noaa.py &
 
 This script collects a list of NOAA satellite passes overhead of your location. It constantly compares the timestamps of the future passes to the current timestamp, and starts recording when the satellite is nearby. It will automatically process each recording into a satellite image, which you can view on the web interface.
 
-### Launch the web dashboard
+### Launch the web interface
 ```
 python3 web.py
 ```
@@ -93,7 +93,7 @@ The Recordings page lets you analyze individual captures, play the converted aud
 
 The Controls page allows you to specify parameters and manually capture a recording.
 
-The Logs page displays the most recent output of the tracker script.
+The Logs page displays the most recent output of the tracker scripts.
 
 ## References
 [NOAA-APT Image Decoder Documentation](https://noaa-apt.mbernardi.com.ar/usage.html#terminal-1)
