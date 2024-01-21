@@ -102,10 +102,10 @@ def main():
 				execute_command("sox -t raw -r 55k -es -b 16 -c 1 static/recordings/" + timestamp_epoch + ".raw static/recordings/" + timestamp_epoch + ".wav rate 11025")
 				execute_command("rm -rf static/recordings/" + timestamp_epoch + ".raw")
 				update_audio_file(timestamp_readable, timestamp_epoch)
-				append_to_log("logs/tracker_output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Saved recording to: " + timestamp_epoch + ".wav" + "\n")
+				append_to_log("logs/output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Saved recording to: " + timestamp_epoch + ".wav" + "\n")
 				execute_command("decoder/noaa-apt static/recordings/" + timestamp_epoch + ".wav --sat " + p["name"].lower().replace(" ", "_") + " -o static/images/" + timestamp_epoch + ".png --rotate yes")
 				update_image(timestamp_readable, timestamp_epoch)
-				append_to_log("logs/tracker_output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Finished processing image." + "\n")
+				append_to_log("logs/output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Finished processing image." + "\n")
 
 		print("Sleeping for " + str(config["interval_seconds"]) + " seconds.")
 		time.sleep(config["interval_seconds"])

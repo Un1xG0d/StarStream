@@ -17,8 +17,8 @@ from pyngrok import ngrok
 def check_logs_exist():
 	if not os.path.isfile("logs/recordings.json"):
 		open("logs/recordings.json", "a").close()
-	if not os.path.isfile("logs/tracker_output.log"):
-		open("logs/tracker_output.log", "a").close()
+	if not os.path.isfile("logs/output.log"):
+		open("logs/output.log", "a").close()
 
 def get_distance_between(coords_1, coords_2):
 	distance, elevation_angle = calculations.get_distance_and_elevation_angle(coords_1, coords_2)
@@ -100,7 +100,7 @@ def controls_route():
 
 @app.route("/logs", methods=["GET"])
 def logs_route():
-	tracker_output = read_file("logs/tracker_output.log").split("\n")
+	tracker_output = read_file("logs/output.log").split("\n")
 	return render_template("logs.html", logs=tracker_output)
 
 if __name__ == "__main__":

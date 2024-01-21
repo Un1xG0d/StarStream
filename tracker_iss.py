@@ -81,7 +81,7 @@ def update_transcript(timestamp_readable, transcript):
 
 def main():
 	config["user_location"] = get_user_location()
-	append_to_log("logs/tracker_output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Started tracker." + "\n")
+	append_to_log("logs/output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Started tracker." + "\n")
 	while True:
 		iss_location = get_iss_location()
 		distance, elevation_angle = calculations.get_distance_and_elevation_angle(config["user_location"], iss_location)
@@ -91,9 +91,9 @@ def main():
 			timestamp = datetime.now()
 			timestamp_readable = timestamp.strftime("%m-%d-%Y %H:%M:%S")
 			timestamp_epoch = timestamp.strftime("%s")
-			append_to_log("logs/tracker_output.log", "[" + timestamp_readable + "] The ISS became within the minimum distance." + "\n")
-			append_to_log("logs/tracker_output.log", "[" + timestamp_readable + "] The ISS is currently " + str(round(distance, 1)) + " miles away." + "\n")
-			append_to_log("logs/tracker_output.log", "[" + timestamp_readable + "] The elevation angle is " + str(round(elevation_angle, 1)) + " degrees." + "\n")
+			append_to_log("logs/output.log", "[" + timestamp_readable + "] The ISS became within the minimum distance." + "\n")
+			append_to_log("logs/output.log", "[" + timestamp_readable + "] The ISS is currently " + str(round(distance, 1)) + " miles away." + "\n")
+			append_to_log("logs/output.log", "[" + timestamp_readable + "] The elevation angle is " + str(round(elevation_angle, 1)) + " degrees." + "\n")
 			recording_output = {
 				"timestamp": timestamp_readable,
 				"user_location": str(config["user_location"]),
@@ -106,15 +106,15 @@ def main():
 			}
 			append_to_log("logs/recordings.json", json.dumps(recording_output) + "\n")
 			execute_command("rtl_sdr -f " + str(config["frequency"]) + "M -s " + str(config["sample_rate"]) + "k -n " + str(config["sample_rate"] * config["seconds_to_record"] * 1000) + " static/recordings/" + timestamp_epoch + ".iq")
-			append_to_log("logs/tracker_output.log", "[" + timestamp_readable + "] Started recording on " + str(config["frequency"]) + " MHz." + "\n")
+			append_to_log("logs/output.log", "[" + timestamp_readable + "] Started recording on " + str(config["frequency"]) + " MHz." + "\n")
 			execute_command("cat static/recordings/" + timestamp_epoch + ".iq | ./demodulator.py > static/recordings/" + timestamp_epoch + ".raw")
 			execute_command("ffmpeg -f s16le -ac 1 -ar " + str(config["sample_rate"]) + "000 -acodec pcm_s16le -i static/recordings/" + timestamp_epoch + ".raw -af 'highpass=f=200, lowpass=f=3000, volume=4' static/recordings/" + timestamp_epoch + ".mp3")
 			execute_command("rm -rf static/recordings/" + timestamp_epoch + ".iq static/recordings/" + timestamp_epoch + ".raw")
 			update_audio_file(timestamp_readable, timestamp_epoch)
-			append_to_log("logs/tracker_output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Saved recording to: " + timestamp_epoch + ".mp3" + "\n")
+			append_to_log("logs/output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Saved recording to: " + timestamp_epoch + ".mp3" + "\n")
 			transcript = transcribe_audio(timestamp_epoch)
 			update_transcript(timestamp_readable, transcript)
-			append_to_log("logs/tracker_output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Finished transcribing audio." + "\n")
+			append_to_log("logs/output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Finished transcribing audio." + "\n")
 
 		print("Sleeping for " + str(config["interval_seconds"]) + " seconds.")
 		time.sleep(config["interval_seconds"])

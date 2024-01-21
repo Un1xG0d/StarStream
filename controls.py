@@ -63,7 +63,7 @@ def start_manual_recording(frequency, seconds_to_record):
 	timestamp = datetime.now()
 	timestamp_readable = timestamp.strftime("%m-%d-%Y %H:%M:%S")
 	timestamp_epoch = timestamp.strftime("%s")
-	append_to_log("logs/tracker_output.log", "[" + timestamp_readable + "] Started manual recording on " + frequency + " MHz." + "\n")
+	append_to_log("logs/output.log", "[" + timestamp_readable + "] Started manual recording on " + frequency + " MHz." + "\n")
 	recording_output = {
 		"timestamp": timestamp_readable,
 		"user_location": "None",
@@ -80,17 +80,17 @@ def start_manual_recording(frequency, seconds_to_record):
 	execute_command("sox -t raw -r 55k -es -b 16 -c 1 static/recordings/" + timestamp_epoch + ".raw static/recordings/" + timestamp_epoch + ".wav")
 	execute_command("rm -rf static/recordings/" + timestamp_epoch + ".raw")
 	update_audio_file(timestamp_readable, timestamp_epoch)
-	append_to_log("logs/tracker_output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Saved recording to: " + timestamp_epoch + ".wav" + "\n")
+	append_to_log("logs/output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Saved recording to: " + timestamp_epoch + ".wav" + "\n")
 	if "137" in frequency:
 		noaa_satellites = [{"name": "NOAA 15", "id": 25338, "downlink": 137.62}, {"name": "NOAA 18", "id": 28654, "downlink": 137.9125}, {"name": "NOAA 19", "id": 33591, "downlink": 137.1}]
 		for sat in noaa_satellites:
 			if float(frequency) == sat["downlink"]:
 				execute_command("decoder/noaa-apt static/recordings/" + timestamp_epoch + ".wav --sat " + sat["name"].lower().replace(" ", "_") + " -o static/images/" + timestamp_epoch + ".png --rotate yes")
 				update_image(timestamp_readable, timestamp_epoch)
-				append_to_log("logs/tracker_output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Finished processing image." + "\n")
+				append_to_log("logs/output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Finished processing image." + "\n")
 	else:
 		execute_command("ffmpeg -i static/recordings/" + timestamp_epoch + ".wav static/recordings/" + timestamp_epoch + ".mp3")
 		transcript = transcribe_audio(timestamp_epoch)
 		update_transcript(timestamp_readable, transcript)
-		append_to_log("logs/tracker_output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Finished transcribing audio." + "\n")
+		append_to_log("logs/output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Finished transcribing audio." + "\n")
 		execute_command("rm -rf static/recordings/" + timestamp_epoch + ".mp3")
