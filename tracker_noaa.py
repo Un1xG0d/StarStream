@@ -38,7 +38,7 @@ def get_noaa_passes():
 		for p in r["passes"]:
 			local_time = datetime.fromtimestamp(p["startUTC"]).strftime("%m-%d-%Y %H:%M")
 			duration = datetime.fromtimestamp(p["endUTC"]) - datetime.fromtimestamp(p["startUTC"])
-			passes.append({"name": sat["name"], "next_pass_utc": p["startUTC"], "next_pass_local": local_time, "max_elevation": int(round(p[0]["maxEl"], 0)), "duration": int(duration.total_seconds()), "downlink": sat["downlink"]})
+			passes.append({"name": sat["name"], "next_pass_utc": p["startUTC"], "next_pass_local": local_time, "max_elevation": int(round(p["maxEl"], 0)), "duration": int(duration.total_seconds()), "downlink": sat["downlink"]})
 	passes = natsort.natsorted(passes, key=itemgetter(*["next_pass_utc"]))
 	return passes
 
