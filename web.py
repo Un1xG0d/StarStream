@@ -50,11 +50,11 @@ def get_noaa_passes():
 
 def get_user_location():
 	print("Attempting to get current location...")
-	time.sleep(15)
 	if type(agps_thread.data_stream.lat) is float:
 		print(f"Got user location: [{agps_thread.data_stream.lat},{agps_thread.data_stream.lon}]")
 		return [agps_thread.data_stream.lat, agps_thread.data_stream.lon]
 	else:
+		time.sleep(15)
 		get_user_location()
 	print(f"Got user location: [{agps_thread.data_stream.lat},{agps_thread.data_stream.lon}]")
 	return [agps_thread.data_stream.lat, agps_thread.data_stream.lon]
