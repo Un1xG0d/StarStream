@@ -35,9 +35,10 @@ def get_noaa_passes():
 	noaa_satellites = [{"name": "NOAA 15", "id": 25338, "downlink": 137.62}, {"name": "NOAA 18", "id": 28654, "downlink": 137.9125}, {"name": "NOAA 19", "id": 33591, "downlink": 137.1}]
 	for sat in noaa_satellites:
 		r = requests.get("https://api.n2yo.com/rest/v1/satellite/radiopasses/" + str(sat["id"]) + "/" + str(config["user_location"][0]) + "/" + str(config["user_location"][1]) + "/0/1/40/&apiKey=" + os.getenv("N2YO_API_KEY")).json()
-		local_time = datetime.fromtimestamp(r["passes"][0]["startUTC"]).strftime("%m-%d-%Y %H:%M")
-		duration = datetime.fromtimestamp(r["passes"][0]["endUTC"]) - datetime.fromtimestamp(r["passes"][0]["startUTC"])
-		passes.append({"name": sat["name"], "next_pass_utc": r["passes"][0]["startUTC"], "next_pass_local": local_time, "max_elevation": int(round(r["passes"][0]["maxEl"], 0)), "duration": int(duration.total_seconds()), "downlink": sat["downlink"]})
+		for p in r["passes"]:
+			local_time = datetime.fromtimestamp(p["startUTC"]).strftime("%m-%d-%Y %H:%M")
+			duration = datetime.fromtimestamp(p["endUTC"]) - datetime.fromtimestamp(p["startUTC"])
+			passes.append({"name": sat["name"], "next_pass_utc": p["startUTC"], "next_pass_local": local_time, "max_elevation": int(round(p[0]["maxEl"], 0)), "duration": int(duration.total_seconds()), "downlink": sat["downlink"]})
 	passes = natsort.natsorted(passes, key=itemgetter(*["next_pass_utc"]))
 	return passes
 
