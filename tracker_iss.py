@@ -81,7 +81,7 @@ def update_transcript(timestamp_readable, transcript):
 
 def main():
 	config["user_location"] = get_user_location()
-	append_to_log("logs/output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Started tracker." + "\n")
+	append_to_log("logs/output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Started ISS tracker." + "\n")
 	while True:
 		iss_location = get_iss_location()
 		distance, elevation_angle = calculations.get_distance_and_elevation_angle(config["user_location"], iss_location)

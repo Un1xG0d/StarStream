@@ -79,6 +79,7 @@ def update_image(timestamp_readable, timestamp_epoch):
 
 def main():
 	config["user_location"] = get_user_location()
+	append_to_log("logs/output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Started NOAA tracker." + "\n")
 	passes = get_noaa_passes()
 	while True:
 		for p in passes:
