@@ -74,6 +74,14 @@ python3 tracker_iss.py &
 
 This script will constantly query the location of the ISS and will start recording when the distance is less than 400 miles away from your current location and the elevation is more than 25 degrees. You can adjust these variables in the `config` object.
 
+### Start the NOAA tracking script
+Start the NOAA tracking script as a background process:
+```
+python3 tracker_noaa.py &
+```
+
+This script collects a list of NOAA satellite passes overhead of your location. It constantly compares the timestamps of the future passes to the current timestamp, and starts recording when the satellite is nearby. It will automatically process each recording into a satellite image, which you can view on the web interface.
+
 ### Launch the web dashboard
 ```
 python3 web.py
@@ -81,7 +89,7 @@ python3 web.py
 
 The Dashboard page has general information on the status of the ISS, your recordings, and a map of the real-time position of the ISS.
 
-The Recordings page lets you analyze individual captures, play the converted audio files, and read transcripts of the communications.
+The Recordings page lets you analyze individual captures, play the converted audio files, read transcripts of the communications, and view any processed satellite images.
 
 The Controls page allows you to specify parameters and manually capture a recording.
 
