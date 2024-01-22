@@ -87,6 +87,7 @@ def main():
 				timestamp = datetime.now()
 				timestamp_readable = timestamp.strftime("%m-%d-%Y %H:%M:%S")
 				timestamp_epoch = timestamp.strftime("%s")
+				append_to_log("logs/output.log", "[" + timestamp_readable + "] Started recording " + p["name"] + " on " + str(p["downlink"]) + " MHz." + "\n")
 				recording_output = {
 					"timestamp": timestamp_readable,
 					"user_location": str(config["user_location"]),

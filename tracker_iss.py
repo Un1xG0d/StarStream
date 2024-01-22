@@ -106,7 +106,7 @@ def main():
 			}
 			append_to_log("logs/recordings.json", json.dumps(recording_output) + "\n")
 			execute_command("rtl_sdr -f " + str(config["frequency"]) + "M -s " + str(config["sample_rate"]) + "k -n " + str(config["sample_rate"] * config["seconds_to_record"] * 1000) + " static/recordings/" + timestamp_epoch + ".iq")
-			append_to_log("logs/output.log", "[" + timestamp_readable + "] Started recording on " + str(config["frequency"]) + " MHz." + "\n")
+			append_to_log("logs/output.log", "[" + timestamp_readable + "] Started recording ISS on " + str(config["frequency"]) + " MHz." + "\n")
 			execute_command("cat static/recordings/" + timestamp_epoch + ".iq | ./demodulator.py > static/recordings/" + timestamp_epoch + ".raw")
 			execute_command("ffmpeg -f s16le -ac 1 -ar " + str(config["sample_rate"]) + "000 -acodec pcm_s16le -i static/recordings/" + timestamp_epoch + ".raw -af 'highpass=f=200, lowpass=f=3000, volume=4' static/recordings/" + timestamp_epoch + ".mp3")
 			execute_command("rm -rf static/recordings/" + timestamp_epoch + ".iq static/recordings/" + timestamp_epoch + ".raw")
