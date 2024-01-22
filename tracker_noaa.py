@@ -105,7 +105,7 @@ def main():
 				execute_command("rm -rf static/recordings/" + timestamp_epoch + ".raw")
 				update_audio_file(timestamp_readable, timestamp_epoch)
 				append_to_log("logs/output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Saved recording to: " + timestamp_epoch + ".wav" + "\n")
-				execute_command("decoder/noaa-apt static/recordings/" + timestamp_epoch + ".wav --sat " + p["name"].lower().replace(" ", "_") + " -o static/images/" + timestamp_epoch + ".png --rotate yes")
+				execute_command("decoder/noaa-apt static/recordings/" + timestamp_epoch + ".wav --sat " + p["name"].lower().replace(" ", "_") + " -o static/images/" + timestamp_epoch + ".png --rotate auto")
 				update_image(timestamp_readable, timestamp_epoch)
 				append_to_log("logs/output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Finished processing image." + "\n")
 
