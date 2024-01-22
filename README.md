@@ -12,8 +12,6 @@ It can also automatically capture and process NOAA weather satellite images.
   <img src="https://github.com/Un1xG0d/AutoARISS/blob/master/images/screenshot_dashboard.png">
   <br>
   <img src="https://github.com/Un1xG0d/AutoARISS/blob/master/images/screenshot_recordings.png">
-  <br>
-  <img src="https://github.com/Un1xG0d/AutoARISS/blob/master/images/screenshot_logs.png">
 </h1>
 
 ## Getting Started
