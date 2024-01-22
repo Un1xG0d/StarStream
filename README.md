@@ -1,4 +1,4 @@
-# AutoARISS
+# StarStream
 ## Overview
 The idea behind this project is to automate the receiving and logging of communications from the [amateur radio repeater on the International Space Station](https://www.ariss.org/).
 
@@ -7,11 +7,11 @@ It uses the real-time location of the ISS to determine distance from the user an
 It can also automatically capture and process NOAA weather satellite images.
 
 <h1 align="center">
-  <img src="https://github.com/Un1xG0d/AutoARISS/blob/master/images/picture_go_kit.png">
+  <img src="https://github.com/Un1xG0d/StarStream/blob/master/images/picture_go_kit.png">
   <br>
-  <img src="https://github.com/Un1xG0d/AutoARISS/blob/master/images/screenshot_dashboard.png">
+  <img src="https://github.com/Un1xG0d/StarStream/blob/master/images/screenshot_dashboard.png">
   <br>
-  <img src="https://github.com/Un1xG0d/AutoARISS/blob/master/images/screenshot_recordings.png">
+  <img src="https://github.com/Un1xG0d/StarStream/blob/master/images/screenshot_recordings.png">
 </h1>
 
 ## Getting Started
@@ -29,9 +29,9 @@ pip3 install -r requirements.txt
 
 You will also need to install the [NOAA-APT image decoder](https://noaa-apt.mbernardi.com.ar/):
 ```
-wget https://github.com/martinber/noaa-apt/releases/download/v1.4.1/noaa-apt-1.4.1-aarch64-linux-gnu-nogui.zip -O /home/admin/AutoARISS/decoder/noaa-apt-1.4.1-aarch64-linux-gnu-nogui.zip
-unzip /home/admin/AutoARISS/decoder/noaa-apt-1.4.1-aarch64-linux-gnu-nogui.zip -d /home/admin/AutoARISS/decoder/
-rm -rf /home/admin/AutoARISS/decoder/noaa-apt-1.4.1-aarch64-linux-gnu-nogui.zip
+wget https://github.com/martinber/noaa-apt/releases/download/v1.4.1/noaa-apt-1.4.1-aarch64-linux-gnu-nogui.zip -O /home/admin/StarStream/decoder/noaa-apt-1.4.1-aarch64-linux-gnu-nogui.zip
+unzip /home/admin/StarStream/decoder/noaa-apt-1.4.1-aarch64-linux-gnu-nogui.zip -d /home/admin/StarStream/decoder/
+rm -rf /home/admin/StarStream/decoder/noaa-apt-1.4.1-aarch64-linux-gnu-nogui.zip
 ```
 
 You may need to configure GPSD to use your [USB GPS receiver](https://www.amazon.com/GlobalSat-BU-353-S4-Receiver-Black-Improved-New/dp/B098L799NH):

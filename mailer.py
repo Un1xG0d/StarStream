@@ -11,9 +11,9 @@ config = {
 }
 
 def send_email(timestamp, dashboard_url):
-	body = "AutoARISS started at: " + timestamp + "\nDashboard URL: " + dashboard_url
+	body = "StarStream started at: " + timestamp + "\nDashboard URL: " + dashboard_url
 	msg = MIMEText(body)
-	msg["Subject"] = "AutoARISS"
+	msg["Subject"] = "StarStream"
 	msg["From"] = config["sender"]
 	msg["To"] = ", ".join(config["recipients"])
 	with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp_server:
