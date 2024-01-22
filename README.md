@@ -70,7 +70,7 @@ Start the ISS tracking script as a background process:
 python3 tracker_iss.py &
 ```
 
-This script will constantly query the location of the ISS and will start recording when the distance is less than 400 miles away from your current location and the elevation is more than 25 degrees. You can adjust these variables in the `config` object.
+This script will constantly query the location of the ISS and will start recording when the distance is less than 400 miles away from your current location and the elevation is more than 40 degrees. You can adjust these variables in the `config` object.
 
 ### Start the NOAA tracking script
 Start the NOAA tracking script as a background process:

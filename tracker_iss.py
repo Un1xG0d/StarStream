@@ -18,7 +18,7 @@ agps_thread.run_thread()
 config = {
 	"user_location": [0, 0],
 	"minimum_distance": 400,
-	"minimum_elevation_angle": 25,
+	"minimum_elevation_angle": 40,
 	"interval_seconds": 30,
 	"frequency": 437.8,
 	"seconds_to_record": 120,
