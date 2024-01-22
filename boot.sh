@@ -1,4 +1,3 @@
-#!/bin/bash
 gpsmon &
 sleep 30
 cd /home/admin/StarStream
