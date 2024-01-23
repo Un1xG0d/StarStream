@@ -3,7 +3,7 @@ import natsort
 import os
 import requests
 import time
-from datetime import datetime
+from datetime import datetime, timezone
 from dotenv import load_dotenv
 from gps3.agps3threaded import AGPS3mechanism
 from operator import itemgetter
@@ -85,6 +85,7 @@ def main():
 		for p in passes:
 			if abs(p["next_pass_utc"] - int(datetime.now().strftime("%s"))) <= config["interval_seconds"]:
 				timestamp = datetime.now()
+				timestamp_utc = datetime.now(timezone.utc).astimezone().isoformat()
 				timestamp_readable = timestamp.strftime("%m-%d-%Y %H:%M:%S")
 				timestamp_epoch = timestamp.strftime("%s")
 				append_to_log("logs/output.log", "[" + timestamp_readable + "] Started recording " + p["name"] + " on " + str(p["downlink"]) + " MHz." + "\n")
@@ -105,7 +106,7 @@ def main():
 				execute_command("rm -rf static/recordings/" + timestamp_epoch + ".raw")
 				update_audio_file(timestamp_readable, timestamp_epoch)
 				append_to_log("logs/output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Saved recording to: " + timestamp_epoch + ".wav" + "\n")
-				execute_command("decoder/noaa-apt static/recordings/" + timestamp_epoch + ".wav --sat " + p["name"].lower().replace(" ", "_") + " -o static/images/" + timestamp_epoch + ".png --rotate auto")
+				execute_command("cd /home/admin/StarStream/decoder && ./noaa-apt ../static/recordings/" + timestamp_epoch + ".wav --sat " + p["name"].lower().replace(" ", "_") + " --output ../static/images/" + timestamp_epoch + ".png --rotate auto --map yes --start-time " + timestamp_utc + " && cd /home/admin/StarStream")
 				update_image(timestamp_readable, timestamp_epoch)
 				append_to_log("logs/output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Finished processing image." + "\n")
 
