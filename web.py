@@ -56,7 +56,6 @@ def get_user_location():
 	else:
 		time.sleep(15)
 		get_user_location()
-	print(f"Got user location: [{agps_thread.data_stream.lat},{agps_thread.data_stream.lon}]")
 	return [agps_thread.data_stream.lat, agps_thread.data_stream.lon]
 
 def load_json(filename):
