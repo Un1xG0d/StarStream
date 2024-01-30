@@ -89,7 +89,7 @@ def start_manual_recording(frequency, seconds_to_record):
 				update_image(timestamp_readable, timestamp_epoch)
 				append_to_log("logs/output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Finished processing image." + "\n")
 	else:
-		execute_command("ffmpeg -i static/recordings/" + timestamp_epoch + ".wav static/recordings/" + timestamp_epoch + ".mp3")
+		execute_command("sox static/recordings/" + timestamp_epoch + ".wav -C 1 static/recordings/" + timestamp_epoch + ".mp3")
 		transcript = transcribe_audio(timestamp_epoch)
 		update_transcript(timestamp_readable, transcript)
 		append_to_log("logs/output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Finished transcribing audio." + "\n")
