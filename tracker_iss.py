@@ -21,8 +21,7 @@ config = {
 	"minimum_elevation_angle": 40,
 	"interval_seconds": 30,
 	"frequency": 437.8,
-	"seconds_to_record": 120,
-	"sample_rate": 256
+	"seconds_to_record": 300
 }
 
 def append_to_log(filename, contents):
@@ -62,7 +61,7 @@ def update_audio_file(timestamp_readable, timestamp_epoch):
 			lines.append(json.loads(line))
 	for line in lines:
 		if line["timestamp"] == timestamp_readable:
-			line["audio_file"] = "recordings/" + timestamp_epoch + ".mp3"
+			line["audio_file"] = "recordings/" + timestamp_epoch + ".wav"
 	with open("logs/recordings.json", "w") as file:
 		for line in lines:
 			file.write(f"{json.dumps(line)}\n")
@@ -105,16 +104,17 @@ def main():
 				"transcript": ""
 			}
 			append_to_log("logs/recordings.json", json.dumps(recording_output) + "\n")
-			execute_command("rtl_sdr -f " + str(config["frequency"]) + "M -s " + str(config["sample_rate"]) + "k -n " + str(config["sample_rate"] * config["seconds_to_record"] * 1000) + " static/recordings/" + timestamp_epoch + ".iq")
 			append_to_log("logs/output.log", "[" + timestamp_readable + "] Started recording ISS on " + str(config["frequency"]) + " MHz." + "\n")
-			execute_command("cat static/recordings/" + timestamp_epoch + ".iq | ./demodulator.py > static/recordings/" + timestamp_epoch + ".raw")
-			execute_command("ffmpeg -f s16le -ac 1 -ar " + str(config["sample_rate"]) + "000 -acodec pcm_s16le -i static/recordings/" + timestamp_epoch + ".raw -af 'highpass=f=200, lowpass=f=3000, volume=4' static/recordings/" + timestamp_epoch + ".mp3")
-			execute_command("rm -rf static/recordings/" + timestamp_epoch + ".iq static/recordings/" + timestamp_epoch + ".raw")
+			execute_command("timeout " + str(config["seconds_to_record"]) + "s rtl_fm -f " + str(config["frequency"]) + "M -s 55k -E wav -E deemp -F 9 static/recordings/" + timestamp_epoch + ".raw")
+			execute_command("sox -t raw -r 55k -es -b 16 -c 1 static/recordings/" + timestamp_epoch + ".raw static/recordings/" + timestamp_epoch + ".wav")
+			execute_command("rm -rf static/recordings/" + timestamp_epoch + ".raw")
 			update_audio_file(timestamp_readable, timestamp_epoch)
-			append_to_log("logs/output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Saved recording to: " + timestamp_epoch + ".mp3" + "\n")
+			append_to_log("logs/output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Saved recording to: " + timestamp_epoch + ".wav" + "\n")
+			execute_command("sox static/recordings/" + timestamp_epoch + ".wav -C 1 static/recordings/" + timestamp_epoch + ".mp3")
 			transcript = transcribe_audio(timestamp_epoch)
 			update_transcript(timestamp_readable, transcript)
 			append_to_log("logs/output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Finished transcribing audio." + "\n")
+			execute_command("rm -rf static/recordings/" + timestamp_epoch + ".mp3")
 
 		print("Sleeping for " + str(config["interval_seconds"]) + " seconds.")
 		time.sleep(config["interval_seconds"])
