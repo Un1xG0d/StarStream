@@ -60,6 +60,8 @@ def update_transcript(timestamp_readable, transcript):
 			file.write(f"{json.dumps(line)}\n")
 
 def start_manual_recording(frequency, seconds_to_record):
+	frequency = str(float(frequency))
+	seconds_to_record = str(int(seconds_to_record))
 	timestamp = datetime.now()
 	timestamp_readable = timestamp.strftime("%m-%d-%Y %H:%M:%S")
 	timestamp_epoch = timestamp.strftime("%s")
