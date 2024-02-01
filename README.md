@@ -23,7 +23,7 @@ This is the headless mode without a GUI, which will make the system last longer 
 ### Install dependencies
 Install required software with the commands:
 ```
-sudo apt install -y ffmpeg gpsd gpsd-clients python3-pip rtl-sdr sox
+sudo apt install -y gpsd gpsd-clients python3-pip rtl-sdr sox
 pip3 install -r requirements.txt
 ```
 
@@ -85,7 +85,7 @@ This script collects a list of NOAA satellite passes overhead of your location. 
 python3 web.py
 ```
 
-The Dashboard page has general information on the status of the ISS, your recordings, and a map of the real-time position of the ISS.
+The Dashboard page has general information on the status of the ISS, your recordings, and a map of the real-time position of the ISS. It also displays a list of future NOAA satellite passes at your location.
 
 The Recordings page lets you analyze individual captures, play the converted audio files, read transcripts of the communications, and view any processed satellite images.
 
@@ -100,4 +100,4 @@ The Logs page displays the most recent output of the tracker scripts.
 
 [Where the ISS at? API Documentation](https://wheretheiss.at/w/developer)
 
-[Listening to radio with Python](https://epxx.co/artigos/pythonfm_en.html)
+[RTL_FM Documentation](https://manpages.ubuntu.com/manpages/trusty/man1/rtl_fm.1.html)
