@@ -61,7 +61,7 @@ def update_audio_file(timestamp_readable, timestamp_epoch):
 			lines.append(json.loads(line))
 	for line in lines:
 		if line["timestamp"] == timestamp_readable:
-			line["audio_file"] = "recordings/" + timestamp_epoch + ".wav"
+			line["audio_file"] = "recordings/" + timestamp_epoch + ".mp3"
 	with open("logs/recordings.json", "w") as file:
 		for line in lines:
 			file.write(f"{json.dumps(line)}\n")
@@ -108,13 +108,12 @@ def main():
 			execute_command("timeout " + str(config["seconds_to_record"]) + "s rtl_fm -f " + str(config["frequency"]) + "M -s 55k -E wav -E deemp -F 9 static/recordings/" + timestamp_epoch + ".raw")
 			execute_command("sox -t raw -r 55k -es -b 16 -c 1 static/recordings/" + timestamp_epoch + ".raw static/recordings/" + timestamp_epoch + ".wav")
 			execute_command("rm -rf static/recordings/" + timestamp_epoch + ".raw")
-			update_audio_file(timestamp_readable, timestamp_epoch)
-			append_to_log("logs/output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Saved recording to: " + timestamp_epoch + ".wav" + "\n")
 			execute_command("sox static/recordings/" + timestamp_epoch + ".wav -C 1 static/recordings/" + timestamp_epoch + ".mp3")
+			update_audio_file(timestamp_readable, timestamp_epoch)
+			append_to_log("logs/output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Saved recording to: " + timestamp_epoch + ".mp3" + "\n")
 			transcript = transcribe_audio(timestamp_epoch)
 			update_transcript(timestamp_readable, transcript)
 			append_to_log("logs/output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Finished transcribing audio." + "\n")
-			execute_command("rm -rf static/recordings/" + timestamp_epoch + ".mp3")
 
 		print("Sleeping for " + str(config["interval_seconds"]) + " seconds.")
 		time.sleep(config["interval_seconds"])

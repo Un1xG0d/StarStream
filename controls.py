@@ -30,7 +30,7 @@ def update_audio_file(timestamp_readable, timestamp_epoch):
 			lines.append(json.loads(line))
 	for line in lines:
 		if line["timestamp"] == timestamp_readable:
-			line["audio_file"] = "recordings/" + timestamp_epoch + ".wav"
+			line["audio_file"] = "recordings/" + timestamp_epoch + ".mp3"
 	with open("logs/recordings.json", "w") as file:
 		for line in lines:
 			file.write(f"{json.dumps(line)}\n")
@@ -79,8 +79,9 @@ def start_manual_recording(frequency, seconds_to_record):
 	execute_command("timeout " + seconds_to_record + "s rtl_fm -f " + frequency + "M -s 55k -E wav -E deemp -F 9 static/recordings/" + timestamp_epoch + ".raw")
 	execute_command("sox -t raw -r 55k -es -b 16 -c 1 static/recordings/" + timestamp_epoch + ".raw static/recordings/" + timestamp_epoch + ".wav")
 	execute_command("rm -rf static/recordings/" + timestamp_epoch + ".raw")
+	execute_command("sox static/recordings/" + timestamp_epoch + ".wav -C 1 static/recordings/" + timestamp_epoch + ".mp3")
 	update_audio_file(timestamp_readable, timestamp_epoch)
-	append_to_log("logs/output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Saved recording to: " + timestamp_epoch + ".wav" + "\n")
+	append_to_log("logs/output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Saved recording to: " + timestamp_epoch + ".mp3" + "\n")
 	if "137" in frequency:
 		noaa_satellites = [{"name": "NOAA 15", "id": 25338, "downlink": 137.62}, {"name": "NOAA 18", "id": 28654, "downlink": 137.9125}, {"name": "NOAA 19", "id": 33591, "downlink": 137.1}]
 		for sat in noaa_satellites:
@@ -89,8 +90,6 @@ def start_manual_recording(frequency, seconds_to_record):
 				update_image(timestamp_readable, timestamp_epoch)
 				append_to_log("logs/output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Finished processing image." + "\n")
 	else:
-		execute_command("sox static/recordings/" + timestamp_epoch + ".wav -C 1 static/recordings/" + timestamp_epoch + ".mp3")
 		transcript = transcribe_audio(timestamp_epoch)
 		update_transcript(timestamp_readable, transcript)
 		append_to_log("logs/output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Finished transcribing audio." + "\n")
-		execute_command("rm -rf static/recordings/" + timestamp_epoch + ".mp3")
