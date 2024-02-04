@@ -59,7 +59,7 @@ def update_transcript(timestamp_readable, transcript):
 		for line in lines:
 			file.write(f"{json.dumps(line)}\n")
 
-def start_manual_recording(frequency, seconds_to_record):
+def start_manual_recording(user_location, frequency, seconds_to_record):
 	frequency = str(float(frequency))
 	seconds_to_record = str(int(seconds_to_record))
 	timestamp = datetime.now()
@@ -68,7 +68,7 @@ def start_manual_recording(frequency, seconds_to_record):
 	append_to_log("logs/output.log", "[" + timestamp_readable + "] Started manual recording on " + frequency + " MHz." + "\n")
 	recording_output = {
 		"timestamp": timestamp_readable,
-		"user_location": "None",
+		"user_location": user_location,
 		"iss_location": "None",
 		"distance": "None",
 		"elevation_angle": "None",
