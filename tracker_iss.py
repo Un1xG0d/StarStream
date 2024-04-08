@@ -73,7 +73,7 @@ def update_transcript(timestamp_readable, transcript):
 			lines.append(json.loads(line))
 	for line in lines:
 		if line["timestamp"] == timestamp_readable:
-			line["transcript"] = transcript
+			line["transcript"] = transcript.replace("'", "\'")
 	with open("logs/recordings.json", "w") as file:
 		for line in lines:
 			file.write(f"{json.dumps(line)}\n")
@@ -111,7 +111,7 @@ def main():
 			execute_command("sox static/recordings/" + timestamp_epoch + ".wav -C 1 static/recordings/" + timestamp_epoch + ".mp3")
 			update_audio_file(timestamp_readable, timestamp_epoch)
 			append_to_log("logs/output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Saved recording to: " + timestamp_epoch + ".mp3" + "\n")
-			transcript = transcribe_audio(timestamp_epoch).replace("'", "\'")
+			transcript = transcribe_audio(timestamp_epoch)
 			update_transcript(timestamp_readable, transcript)
 			append_to_log("logs/output.log", "[" + datetime.now().strftime("%m-%d-%Y %H:%M:%S") + "] Finished transcribing audio." + "\n")
 
