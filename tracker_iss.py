@@ -18,10 +18,10 @@ agps_thread.run_thread()
 config = {
 	"user_location": [0, 0],
 	"minimum_distance": 400,
-	"minimum_elevation_angle": 30,
+	"minimum_elevation_angle": 25,
 	"interval_seconds": 30,
 	"frequency": 437.8,
-	"seconds_to_record": 300
+	"seconds_to_record": 500
 }
 
 def append_to_log(filename, contents):
