@@ -33309,6 +33309,8 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   margin: 0 0 10px;
   padding: 0;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media (min-width: 992px) {
