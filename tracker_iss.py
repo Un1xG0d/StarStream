@@ -73,7 +73,7 @@ def update_transcript(timestamp_readable, transcript):
 			lines.append(json.loads(line))
 	for line in lines:
 		if line["timestamp"] == timestamp_readable:
-			line["transcript"] = transcript.replace("'", "\'")
+			line["transcript"] = transcript.replace("'", "&#8216;")
 	with open("logs/recordings.json", "w") as file:
 		for line in lines:
 			file.write(f"{json.dumps(line)}\n")
