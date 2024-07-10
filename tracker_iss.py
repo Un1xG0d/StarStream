@@ -21,7 +21,7 @@ config = {
 	"minimum_elevation_angle": 15,
 	"interval_seconds": 30,
 	"frequency": 437.8,
-	"seconds_to_record": 500
+	"seconds_to_record": 300
 }
 
 def append_to_log(filename, contents):
