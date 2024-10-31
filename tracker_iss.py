@@ -90,7 +90,7 @@ def main():
 			timestamp = datetime.now()
 			timestamp_readable = timestamp.strftime("%m-%d-%Y %H:%M:%S")
 			timestamp_epoch = timestamp.strftime("%s")
-			append_to_log("logs/output.log", "[" + timestamp_readable + "] The ISS became within the minimum distance." + "\n")
+			append_to_log("logs/output.log", "[" + timestamp_readable + "] The ISS came within the minimum configured distance." + "\n")
 			append_to_log("logs/output.log", "[" + timestamp_readable + "] The ISS is currently " + str(round(distance, 1)) + " miles away." + "\n")
 			append_to_log("logs/output.log", "[" + timestamp_readable + "] The elevation angle is " + str(round(elevation_angle, 1)) + " degrees." + "\n")
 			recording_output = {
